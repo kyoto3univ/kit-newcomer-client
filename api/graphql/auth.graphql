@@ -1,0 +1,7 @@
+mutation getAuthorizeInfo {
+  getAuthorizeInfo {
+    requestToken
+    requestTokenSecret
+    callbackUrl
+  }
+}

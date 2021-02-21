@@ -3,13 +3,18 @@
     "dev": "next dev",
     "start": "next start",
     "build": "next build",
-    "test:lint": "eslint './src/**/*.{ts,tsx}'",
+    "build:codegen": "graphql-codegen && eslint --fix ./api/generated.ts",
+    "test:lint": "eslint './components/**/*.{ts,tsx}' './pages/**/*.{ts,tsx}' './api/**/*.{ts,tsx}'",
     "test": "run-p test:*"
   },
   "name": "kit-newcomer-client",
   "version": "1.0.0",
   "license": "GPL-3.0",
   "devDependencies": {
+    "@graphql-codegen/cli": "^1.20.1",
+    "@graphql-codegen/typescript": "^1.21.0",
+    "@graphql-codegen/typescript-operations": "^1.17.14",
+    "@graphql-codegen/typescript-react-query": "^1.2.0",
     "@types/node": "^14.14.31",
     "@types/react": "^17.0.2",
     "@typescript-eslint/eslint-plugin": "^4.15.1",
@@ -25,10 +30,13 @@
   "dependencies": {
     "autoprefixer": "^10.2.4",
     "clsx": "^1.1.1",
+    "graphql": "^15.5.0",
+    "graphql-request": "^3.4.0",
     "next": "^10.0.7",
     "postcss": "^8.2.6",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-query": "^3.9.8",
     "tailwindcss": "^2.0.3"
   }
 }
