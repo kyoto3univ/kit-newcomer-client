@@ -15,7 +15,7 @@ module.exports = {
         DEFAULT: '#0f94b3',
         light: '#16add0',
       },
-      gray: colors.coolGray,
+      gray: colors.gray,
       white: colors.white,
     },
     fontFamily: {

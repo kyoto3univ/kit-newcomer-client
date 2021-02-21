@@ -14,9 +14,6 @@ export const Button: React.FunctionComponent<Props> = ({
     <button
       onClick={onClick}
       className={clsx(
-        'bg-blue-light',
-        'border-blue-light',
-        'hover:bg-blue',
         'border-2',
         'rounded',
         'text-white',
@@ -26,6 +23,10 @@ export const Button: React.FunctionComponent<Props> = ({
         {
           'bg-gray-400': disabled,
           'border-gray-400': disabled,
+          'bg-blue-light': !disabled,
+          'border-blue-light': !disabled,
+          'hover:bg-blue': !disabled,
+          'cursor-not-allowed': disabled,
         },
       )}
       disabled={disabled}
