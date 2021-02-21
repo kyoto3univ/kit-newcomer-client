@@ -1,0 +1,146 @@
+schema {
+  query: QueryRoot
+  mutation: MutationRoot
+}
+
+type Asset {
+  id: StringNumber!
+  ownerId: StringNumber!
+  clubId: String!
+  name: String!
+  alternativeDescription: String
+  filePath: String!
+  fileSize: Int!
+  imageWidth: Int
+  imageHeight: Int
+}
+
+enum ClubEditLevel {
+  EDITOR
+  OWNER
+}
+
+type ClubPaging {
+  items: [ClubWithMembers!]!
+  count: Int!
+}
+
+enum ClubTopImageType {
+  IMAGE
+  YOU_TUBE
+}
+
+type ClubWithLevelItem {
+  level: ClubEditLevel!
+  club: ClubWithMembers!
+}
+
+type ClubWithMembers {
+  id: String!
+  name: String!
+  isPublished: Boolean!
+  shortDescription: String
+  longDescription: String
+  joinDescription: String
+  place: String
+  schedule: String
+  videoUrl: String
+  contactUrl: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  topContentType: ClubTopImageType!
+  members: [ClubWithMembersItem!]!
+  topImage: Asset
+  thumbImage: Asset
+}
+
+type ClubWithMembersItem {
+  level: ClubEditLevel!
+  user: User!
+}
+
+# Implement the DateTime<Local> scalar
+#
+# The input/output is a string in RFC3339 format.
+scalar DateTime
+
+type MutationRoot {
+  updateUserPermission(
+    userId: StringNumber!
+    permission: UserPermission!
+  ): User!
+  createNewClub(name: String!): ClubWithMembers!
+  updateClub(id: String!, update: UpdateClubDto!): ClubWithMembers!
+  changePublishState(id: String!, isPublished: Boolean!): ClubWithMembers!
+  addMemberToClub(
+    clubId: String!
+    userId: StringNumber!
+    level: ClubEditLevel
+  ): ClubWithMembers!
+  deleteMemberFromClub(clubId: String!, userId: StringNumber!): ClubWithMembers!
+  getAuthorizeInfo: TwitterAuthenticationResponse!
+  getBearerFromRequestToken(request: TwitterLoginInput!): TwitterLoginResponse!
+}
+
+type QueryRoot {
+  getMyClubs: [ClubWithLevelItem!]!
+  getClubs(offset: Int, limit: Int): ClubPaging!
+  me: User!
+  getUsers(
+    offset: Int
+    limit: Int
+    leastPermission: UserPermission
+    screenName: String
+  ): UserPaging!
+}
+
+scalar StringNumber
+
+type TwitterAuthenticationResponse {
+  requestToken: String!
+  requestTokenSecret: String!
+  callbackUrl: String!
+}
+
+input TwitterLoginInput {
+  requestToken: String!
+  requestTokenSecret: String!
+  verifier: String!
+}
+
+type TwitterLoginResponse {
+  bearerToken: String!
+  userId: String!
+  user: User!
+}
+
+input UpdateClubDto {
+  shortDescription: String
+  longDescription: String
+  joinDescription: String
+  place: String
+  schedule: String
+  videoUrl: String
+  contactUrl: String
+  topContentType: ClubTopImageType
+}
+
+type User {
+  id: StringNumber!
+  name: String!
+  screenName: String!
+  icon: String
+  permission: UserPermission!
+}
+
+type UserPaging {
+  items: [User!]!
+  count: Int!
+}
+
+enum UserPermission {
+  NEWCOMER_OR_NONE
+  CLUB_MEMBER
+  MODERATOR
+  ADMIN
+}
