@@ -1,12 +1,15 @@
 import clsx from 'clsx';
+import { Spin } from './spin';
 
 type Props = {
   disabled?: boolean;
+  loading?: boolean;
   onClick?: () => void;
 };
 
 export const Button: React.FunctionComponent<Props> = ({
   disabled,
+  loading,
   children,
   onClick,
 }) => {
@@ -31,6 +34,7 @@ export const Button: React.FunctionComponent<Props> = ({
       )}
       disabled={disabled}
     >
+      {loading && <Spin />}
       {children}
     </button>
   );
