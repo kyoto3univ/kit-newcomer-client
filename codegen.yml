@@ -10,7 +10,7 @@ generates:
       - typescript-operations
       - typescript-react-query
 config:
-  fetcher: graphql-request
+  fetcher: ./fetcher#fetchGQL
   scalars:
     DateTime: string
     StringNumber: string
