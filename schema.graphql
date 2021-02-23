@@ -84,7 +84,7 @@ type MutationRoot {
 
 type QueryRoot {
   getMyClubs: [ClubWithLevelItem!]!
-  getClubs(offset: Int, limit: Int): ClubPaging!
+  getClubs(offset: Int, limit: Int, includeUnpublished: Boolean): ClubPaging!
   me: User!
   getUsers(
     offset: Int
@@ -92,6 +92,7 @@ type QueryRoot {
     leastPermission: UserPermission
     screenName: String
   ): UserPaging!
+  club(id: String!): ClubWithMembers!
 }
 
 scalar StringNumber
