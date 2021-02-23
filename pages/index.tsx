@@ -1,7 +1,5 @@
-import { AppHeader } from '../components/app-header';
-
 const Index = () => {
-  return <AppHeader />;
+  return <div />;
 };
 
 export default Index;

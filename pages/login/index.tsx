@@ -1,6 +1,5 @@
 import React from 'react';
 import { useGetAuthorizeInfoMutation } from '../../api/generated';
-import { AppHeader } from '../../components/app-header';
 import { Button } from '../../components/ui/button';
 import { AppContainer } from '../../components/ui/container';
 import { SectionTitle } from '../../components/ui/section-title';
@@ -30,7 +29,6 @@ const Login = () => {
 
   return (
     <div>
-      <AppHeader />
       <AppContainer>
         <SectionTitle>ログイン</SectionTitle>
         <Button
