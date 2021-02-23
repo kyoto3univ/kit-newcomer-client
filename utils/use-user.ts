@@ -16,6 +16,6 @@ export const useUser = () => {
     isLoggedIn: isSuccess,
     canBeLoggedIn: tokenStatus,
     user: data?.me,
-    refetch,
+    refetchUser: refetch,
   };
 };

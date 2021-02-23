@@ -2,11 +2,13 @@ import { useRouter } from 'next/router';
 import React from 'react';
 import { useGetTokenFromTwitterMutation } from '../../api/generated';
 import { AppContainer } from '../../components/ui/container';
+import { useUser } from '../../utils/use-user';
 
 const LoginCallback = () => {
   const [isNoTokenError, setNoTokenError] = React.useState(false);
   const { mutateAsync, isError } = useGetTokenFromTwitterMutation();
   const { query, replace } = useRouter();
+  const { refetchUser } = useUser();
   React.useEffect(() => {
     if (
       typeof query.oauth_token !== 'string' ||
@@ -32,6 +34,8 @@ const LoginCallback = () => {
       localStorage.setItem('token', bearerToken);
       localStorage.setItem('requestToken', '');
       localStorage.setItem('requestTokenSecret', '');
+
+      refetchUser();
 
       replace('/');
     });
