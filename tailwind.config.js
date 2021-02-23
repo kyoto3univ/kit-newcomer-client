@@ -33,5 +33,7 @@ module.exports = {
   },
   variants: {
     outline: ['focus'],
+    border: ['focus'],
+    ring: ['focus'],
   },
 };

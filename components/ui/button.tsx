@@ -1,10 +1,11 @@
 import clsx from 'clsx';
 import { Spin } from './spin';
 
-type Props = {
-  disabled?: boolean;
+type Props = React.DetailedHTMLProps<
+  React.ButtonHTMLAttributes<HTMLButtonElement>,
+  HTMLButtonElement
+> & {
   loading?: boolean;
-  onClick?: () => void;
 };
 
 export const Button: React.FunctionComponent<Props> = ({
