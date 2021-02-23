@@ -20,3 +20,17 @@ mutation getTokenFromTwitter(
     userId
   }
 }
+
+fragment UserInfo on User {
+  id
+  name
+  screenName
+  icon
+  permission
+}
+
+query getMyUser {
+  me {
+    ...UserInfo
+  }
+}

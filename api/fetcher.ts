@@ -17,9 +17,7 @@ export const fetchGQL = <TData, TVariables>(
     }
     const res = await fetch(process.env.API_ENDPOINT as string, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers,
       body: JSON.stringify({
         query,
         variables,

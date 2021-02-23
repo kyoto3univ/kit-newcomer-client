@@ -1,31 +1,37 @@
+import { useRouter } from 'next/router';
 import React from 'react';
 import { useGetAuthorizeInfoMutation } from '../../api/generated';
 import { Button } from '../../components/ui/button';
 import { AppContainer } from '../../components/ui/container';
 import { SectionTitle } from '../../components/ui/section-title';
+import { useUser } from '../../utils/use-user';
 
 const Login = () => {
-  const { mutate, data, isSuccess, isLoading } = useGetAuthorizeInfoMutation();
+  const { mutateAsync, isSuccess, isLoading } = useGetAuthorizeInfoMutation();
+  const { canBeLoggedIn, isLoggedIn } = useUser();
+  const { replace } = useRouter();
   const handleLoginClick = React.useCallback(() => {
     if (!process.browser) return;
 
-    mutate({});
-  }, []);
-
-  React.useEffect(() => {
-    if (isSuccess && data) {
+    mutateAsync({}).then((response) => {
       const {
         requestToken,
         requestTokenSecret,
         callbackUrl,
-      } = data.getAuthorizeInfo;
+      } = response.getAuthorizeInfo;
 
       localStorage.setItem('requestToken', requestToken);
       localStorage.setItem('requestTokenSecret', requestTokenSecret);
 
       location.href = callbackUrl;
+    });
+  }, []);
+
+  React.useEffect(() => {
+    if (isLoggedIn) {
+      replace('/');
     }
-  }, [data, isSuccess]);
+  }, [isLoggedIn]);
 
   return (
     <div>
@@ -33,7 +39,7 @@ const Login = () => {
         <SectionTitle>ログイン</SectionTitle>
         <Button
           loading={isLoading}
-          disabled={isLoading || isSuccess}
+          disabled={isLoading || isSuccess || canBeLoggedIn || isLoggedIn}
           onClick={handleLoginClick}
         >
           Login with twitter
