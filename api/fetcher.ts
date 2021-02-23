@@ -1,3 +1,5 @@
+import fetch from 'isomorphic-fetch';
+
 export const fetchGQL = <TData, TVariables>(
   query: string,
   variables?: TVariables,
