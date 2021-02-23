@@ -5,3 +5,18 @@ mutation getAuthorizeInfo {
     callbackUrl
   }
 }
+
+mutation getTokenFromTwitter(
+  $requestToken: String!,
+  $requestTokenSecret: String!,
+  $verifier: String!
+) {
+  getBearerFromRequestToken(request: {
+    requestToken: $requestToken,
+    requestTokenSecret: $requestTokenSecret,
+    verifier: $verifier
+  }) {
+    bearerToken
+    userId
+  }
+}
