@@ -1,0 +1,5 @@
+mutation createNewClub($name: String!) {
+  createNewClub(name: $name) {
+    id
+  }
+}
