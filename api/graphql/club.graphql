@@ -3,3 +3,48 @@ mutation createNewClub($name: String!) {
     id
   }
 }
+
+fragment AssetBasic on Asset {
+  id
+  name
+  alternativeDescription
+  filePath
+}
+
+fragment UserBasic on User {
+  id
+  name
+  icon
+}
+
+fragment ClubDetail on ClubWithMembers {
+  id
+  name
+  isPublished
+  shortDescription
+  longDescription
+  joinDescription
+  place
+  schedule
+  videoUrl
+  contactUrl
+  createdAt
+  topContentType
+  topImage {
+    ...AssetBasic
+  }
+  thumbImage {
+    ...AssetBasic
+  }
+  members {
+    user {
+      ...UserBasic
+    }
+  }
+}
+
+query getClubDetails($id: String!) {
+  club(id: $id) {
+    ...ClubDetail
+  }
+}
