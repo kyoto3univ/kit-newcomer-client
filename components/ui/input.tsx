@@ -1,3 +1,5 @@
+import clsx from 'clsx';
+
 export const TextBox = (
   props: React.DetailedHTMLProps<
     React.InputHTMLAttributes<HTMLInputElement>,
@@ -6,8 +8,11 @@ export const TextBox = (
 ) => {
   return (
     <input
-      className='shadow border border-gray-300 focus:ring-blue-light focus:ring rounded m-1 p-1 block w-full outline-none'
       {...props}
+      className={clsx(
+        'shadow border border-gray-300 focus:ring-blue-light focus:ring rounded m-1 p-1 block outline-none',
+        props.className,
+      )}
     />
   );
 };
@@ -20,8 +25,11 @@ export const TextArea = (
 ) => {
   return (
     <textarea
-      className='shadow border border-gray-300 focus:ring-blue-light focus:ring rounded m-1 p-1 block w-full outline-none'
       {...props}
+      className={clsx(
+        'shadow border border-gray-300 focus:ring-blue-light focus:ring rounded m-1 p-1 block outline-none',
+        props.className,
+      )}
     />
   );
 };
