@@ -15,6 +15,11 @@ type Asset {
   imageHeight: Int
 }
 
+type AssetPaging {
+  items: [Asset!]!
+  count: Int!
+}
+
 enum ClubEditLevel {
   EDITOR
   OWNER
@@ -83,8 +88,10 @@ type MutationRoot {
 }
 
 type QueryRoot {
+  getAssetsFromClub(clubId: String!, offset: Int, limit: Int): AssetPaging!
   getMyClubs: [ClubWithLevelItem!]!
   getClubs(offset: Int, limit: Int, includeUnpublished: Boolean): ClubPaging!
+  club(id: String!): ClubWithMembers!
   me: User!
   getUsers(
     offset: Int
@@ -92,7 +99,6 @@ type QueryRoot {
     leastPermission: UserPermission
     screenName: String
   ): UserPaging!
-  club(id: String!): ClubWithMembers!
 }
 
 scalar StringNumber
