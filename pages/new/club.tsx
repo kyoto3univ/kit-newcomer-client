@@ -56,16 +56,16 @@ const NewClub = () => {
         onSubmit={handleSubmit}
       >
         <Form>
-          <label htmlFor='title'>部活名</label>
+          <label htmlFor='name'>部活名</label>
           <Field
             as={TextBox}
-            name='title'
+            name='name'
             required
             maxLength={32}
             placeholder='Awesome Club activity'
             disabled={isLoading}
           ></Field>
-          <ErrorMessage name='title' />
+          <ErrorMessage name='name' />
 
           <Button disabled={isLoading} type='submit'>
             作成する
