@@ -1,13 +1,12 @@
-import fetch from 'isomorphic-fetch';
+import { GraphQLClient } from 'graphql-request';
 
+const client = new GraphQLClient(process.env.API_ENDPOINT as string);
 export const fetchGQL = <TData, TVariables>(
   query: string,
   variables?: TVariables,
 ): (() => Promise<TData>) => {
   return async () => {
-    const headers: Record<string, string> = {
-      'Content-Type': 'application/json',
-    };
+    const headers: Record<string, string> = {};
 
     if (process.browser) {
       const token = localStorage.getItem('token');
@@ -15,22 +14,13 @@ export const fetchGQL = <TData, TVariables>(
         headers['Authorization'] = `Bearer ${token}`;
       }
     }
-    const res = await fetch(process.env.API_ENDPOINT as string, {
-      method: 'POST',
+
+    const res = await client.request<TData, TVariables>(
+      query,
+      variables,
       headers,
-      body: JSON.stringify({
-        query,
-        variables,
-      }),
-    });
+    );
 
-    const json = await res.json();
-
-    if (json.errors) {
-      const { message } = json.errors[0] || 'Error..';
-      throw new Error(message);
-    }
-
-    return json.data;
+    return res;
   };
 };
