@@ -43,6 +43,15 @@ fragment ClubDetail on ClubWithMembers {
   }
 }
 
+fragment ClubBasic on ClubWithMembers {
+  id
+  name
+  shortDescription
+  thumbImage {
+    ...AssetBasic
+  }
+}
+
 query getClubDetails($id: String!) {
   club(id: $id) {
     ...ClubDetail
