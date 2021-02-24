@@ -1,0 +1,14 @@
+query getAssetsFromClub($clubId: String!, $offset: Int, $limit: Int) {
+  getAssetsFromClub(clubId: $clubId, offset: $offset, limit: $limit) {
+    count
+    items {
+      ...AssetBasic
+    }
+  }
+}
+
+mutation uploadAsset($clubId: String!, $upload: Upload!) {
+  uploadAssetFor(clubId: $clubId, upload: $upload) {
+    ...AssetBasic
+  }
+}

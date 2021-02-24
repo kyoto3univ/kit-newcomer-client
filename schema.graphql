@@ -70,6 +70,8 @@ type ClubWithMembersItem {
 scalar DateTime
 
 type MutationRoot {
+  uploadAssetFor(clubId: String!, upload: Upload!): Asset!
+  updateAsset(assetId: StringNumber!, update: UpdateAssetDto!): Asset!
   updateUserPermission(
     userId: StringNumber!
     permission: UserPermission!
@@ -121,6 +123,10 @@ type TwitterLoginResponse {
   user: User!
 }
 
+input UpdateAssetDto {
+  alternativeDescription: String
+}
+
 input UpdateClubDto {
   shortDescription: String
   longDescription: String
@@ -131,6 +137,8 @@ input UpdateClubDto {
   contactUrl: String
   topContentType: ClubTopImageType
 }
+
+scalar Upload
 
 type User {
   id: StringNumber!
