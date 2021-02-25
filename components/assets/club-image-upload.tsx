@@ -7,11 +7,12 @@ import { AssetSelectDialog } from './select-dialog';
 
 type Props = {
   currentAsset?: AssetBasicFragment;
-  onAssetUpdate: (asset: AssetBasicFragment) => void;
+  onAssetUpdate: (asset: AssetBasicFragment | null) => void;
   placeholderClassName?: string;
   imageClassName?: string;
   containerClassName?: string;
   clubId: string;
+  allowEmpty?: boolean;
 };
 export const ClubImageUpload = ({
   currentAsset,
@@ -20,6 +21,7 @@ export const ClubImageUpload = ({
   imageClassName,
   containerClassName,
   clubId,
+  allowEmpty,
 }: Props) => {
   const [isUploadDialogShown, setUploadDialogShown] = React.useState(false);
   const handleSelectClick = React.useCallback(() => {
@@ -29,7 +31,7 @@ export const ClubImageUpload = ({
     setUploadDialogShown(false);
   }, []);
   const handleAssetUpdate = React.useCallback(
-    (asset: AssetBasicFragment) => {
+    (asset: AssetBasicFragment | null) => {
       setUploadDialogShown(false);
       onAssetUpdate(asset);
     },
@@ -69,6 +71,8 @@ export const ClubImageUpload = ({
         onAssetUpdate={handleAssetUpdate}
         onDismiss={handleDismiss}
         clubId={clubId}
+        allowEmpty={allowEmpty}
+        currentAsset={currentAsset}
       />
     </>
   );
@@ -82,10 +86,14 @@ export const ClubImageUploadField = (props: FieldProps) => {
   const [, , { setValue }] = useField(props);
   const [currentAsset, setCurrentAsset] = React.useState(props.initialAsset);
 
+  React.useEffect(() => {
+    setCurrentAsset(props.initialAsset);
+  }, [props.initialAsset]);
+
   const handleAssetUpdate = React.useCallback(
-    (asset: AssetBasicFragment) => {
-      setValue(asset.id);
-      setCurrentAsset(asset);
+    (asset: AssetBasicFragment | null) => {
+      setValue(asset?.id ?? '');
+      setCurrentAsset(asset ?? undefined);
       props.onAssetUpdate(asset);
     },
     [props.onAssetUpdate],

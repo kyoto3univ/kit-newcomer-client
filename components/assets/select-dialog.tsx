@@ -11,12 +11,13 @@ import { SectionTitle } from '../ui/section-title';
 import { AssetUploadArea } from './upload-area';
 
 type Props = {
-  onAssetUpdate: (asset: AssetBasicFragment) => void;
+  onAssetUpdate: (asset: AssetBasicFragment | null) => void;
   currentAsset?: AssetBasicFragment;
   onDismiss?: () => void;
   open?: boolean;
   clubId: string;
   recommendAspect?: number;
+  allowEmpty?: boolean;
 };
 
 export const AssetSelectDialog = ({
@@ -25,6 +26,7 @@ export const AssetSelectDialog = ({
   open,
   clubId,
   currentAsset,
+  allowEmpty,
 }: Props) => {
   const {
     data: uploadedAssets,
@@ -45,10 +47,16 @@ export const AssetSelectDialog = ({
     );
     if (asset) {
       onAssetUpdate(asset);
+      setSelectedAssetId(asset.id);
     } else {
       alert('Internal error');
     }
   }, [selectedAssetId, uploadedAssets]);
+
+  const handleDelete = React.useCallback(() => {
+    onAssetUpdate(null);
+    setSelectedAssetId('');
+  }, []);
 
   const handleDismiss = React.useCallback(() => {
     setSelectedAssetId(currentAsset?.id ?? '');
@@ -87,6 +95,11 @@ export const AssetSelectDialog = ({
       <Button disabled={selectedAssetId === ''} onClick={handleOk}>
         確定
       </Button>
+      {allowEmpty && (
+        <Button disabled={selectedAssetId === ''} onClick={handleDelete}>
+          画像を削除
+        </Button>
+      )}
     </Dialog>
   );
 };
