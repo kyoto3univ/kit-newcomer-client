@@ -17,6 +17,7 @@ module.exports = {
       },
       gray: colors.gray,
       white: colors.white,
+      red: colors.red,
     },
     fontFamily: {
       ...fontFamily,
@@ -30,10 +31,5 @@ module.exports = {
       ],
     },
     backgroundImage: {},
-  },
-  variants: {
-    outline: ['focus'],
-    border: ['focus', 'hover'],
-    ring: ['focus'],
   },
 };

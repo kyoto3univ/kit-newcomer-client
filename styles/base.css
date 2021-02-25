@@ -3,3 +3,10 @@
 @tailwind utilities;
 
 @import "@reach/dialog/styles.css";
+
+[data-reach-dialog-content] {
+  margin: 5vh auto;
+  width: 90vw;
+  max-width: 1000px;
+  padding: 1rem;
+}

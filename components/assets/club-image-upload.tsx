@@ -9,6 +9,7 @@ type Props = {
   placeholderClassName?: string;
   imageClassName?: string;
   containerClassName?: string;
+  clubId: string;
 };
 export const ClubImageUpload = ({
   currentAsset,
@@ -16,10 +17,14 @@ export const ClubImageUpload = ({
   placeholderClassName,
   imageClassName,
   containerClassName,
+  clubId,
 }: Props) => {
   const [isUploadDialogShown, setUploadDialogShown] = React.useState(false);
   const handleSelectClick = React.useCallback(() => {
     setUploadDialogShown(true);
+  }, []);
+  const handleDismiss = React.useCallback(() => {
+    setUploadDialogShown(false);
   }, []);
   return (
     <>
@@ -45,6 +50,8 @@ export const ClubImageUpload = ({
       <AssetSelectDialog
         open={isUploadDialogShown}
         onAssetUpdate={onAssetUpdate}
+        onDismiss={handleDismiss}
+        clubId={clubId}
       />
     </>
   );
