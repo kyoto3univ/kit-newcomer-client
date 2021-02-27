@@ -14,3 +14,31 @@ export const convertClubToForm = (club: ClubDetailFragment): UpdateClubDto => {
     topImageId: club.topImage?.id ?? '',
   };
 };
+
+export const convertFormToClubDto = (form: UpdateClubDto): UpdateClubDto => {
+  const keys: Array<keyof UpdateClubDto> = [
+    'contactUrl',
+    'joinDescription',
+    'longDescription',
+    'name',
+    'place',
+    'schedule',
+    'shortDescription',
+    'thumbImageId',
+    'topContentType',
+    'topImageId',
+    'videoUrl',
+  ];
+  const copyTarget = keys.filter(
+    (key) => form[key] !== undefined && form[key] !== '',
+  );
+  const nullTarget = keys.filter((key) => !copyTarget.includes(key));
+
+  const output: UpdateClubDto = {};
+
+  // @ts-ignore
+  copyTarget.forEach((key) => (output[key] = form[key]));
+  nullTarget.forEach((key) => (output[key] = null));
+
+  return output;
+};

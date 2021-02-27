@@ -57,3 +57,9 @@ query getClubDetails($id: String!) {
     ...ClubDetail
   }
 }
+
+mutation updateClub($id: String!, $update: UpdateClubDto!) {
+  updateClub(id: $id, update: $update) {
+    ...ClubDetail
+  }
+}

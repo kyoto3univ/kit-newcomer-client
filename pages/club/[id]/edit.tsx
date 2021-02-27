@@ -1,13 +1,22 @@
 import { Form, Formik } from 'formik';
 import { useRouter } from 'next/router';
 import React from 'react';
-import { useGetClubDetailsQuery, UserPermission } from '../../../api/generated';
+import {
+  UpdateClubDto,
+  useGetClubDetailsQuery,
+  UserPermission,
+  useUpdateClubMutation,
+} from '../../../api/generated';
 import { BasicEditFormFields } from '../../../components/club/basic-edit';
 import { DetailsEditFormFields } from '../../../components/club/details-edit';
+import { Button } from '../../../components/ui/button';
 import { AppContainer } from '../../../components/ui/container';
 import { Loading } from '../../../components/ui/loading';
 import { SectionTitle } from '../../../components/ui/section-title';
-import { convertClubToForm } from '../../../utils/club-dto';
+import {
+  convertClubToForm,
+  convertFormToClubDto,
+} from '../../../utils/club-dto';
 import {
   useAutoRedirect,
   usePermissionCheck,
@@ -29,6 +38,18 @@ const ClubEdit = () => {
     {
       enabled: !isLoading && hasPermission,
     },
+  );
+  const { mutate, isLoading: isUpdating } = useUpdateClubMutation();
+
+  const handleSubmit = React.useCallback(
+    (values: UpdateClubDto) => {
+      const dto = convertFormToClubDto(values);
+      mutate({
+        id: query.id as string,
+        update: dto,
+      });
+    },
+    [query],
   );
 
   useAutoRedirect();
@@ -60,7 +81,10 @@ const ClubEdit = () => {
   return (
     <AppContainer>
       <SectionTitle>{data!.club.name}の編集</SectionTitle>
-      <Formik initialValues={convertClubToForm(data!.club)} onSubmit={() => {}}>
+      <Formik
+        initialValues={convertClubToForm(data!.club)}
+        onSubmit={handleSubmit}
+      >
         <Form>
           <BasicEditFormFields
             clubId={data!.club.id}
@@ -71,6 +95,10 @@ const ClubEdit = () => {
             clubId={data!.club.id}
             currentClub={data!.club}
           />
+          <hr />
+          <Button type='submit' disabled={isUpdating}>
+            保存する
+          </Button>
         </Form>
       </Formik>
     </AppContainer>
