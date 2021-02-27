@@ -1,4 +1,9 @@
-import { ClubDetailFragment, UpdateClubDto } from '../api/generated';
+import * as yup from 'yup';
+import {
+  ClubDetailFragment,
+  ClubTopImageType,
+  UpdateClubDto,
+} from '../api/generated';
 
 export const convertClubToForm = (club: ClubDetailFragment): UpdateClubDto => {
   return {
@@ -42,3 +47,20 @@ export const convertFormToClubDto = (form: UpdateClubDto): UpdateClubDto => {
 
   return output;
 };
+
+export const clubDtoValidator = yup.object().shape({
+  contactUrl: yup.string().url(),
+  joinDescription: yup.string().max(150),
+  longDescription: yup.string(),
+  name: yup.string().max(50).required(),
+  place: yup.string().max(100),
+  schedule: yup.string().max(100),
+  shortDescription: yup.string().max(150),
+  thumbImageId: yup.number().positive().integer(),
+  topImageId: yup.number().positive().integer(),
+  topContentType: yup
+    .string()
+    .oneOf(Object.values(ClubTopImageType))
+    .required(),
+  videoUrl: yup.string().url(),
+});

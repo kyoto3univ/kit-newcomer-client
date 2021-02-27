@@ -1,7 +1,9 @@
 import { Field } from 'formik';
+import React from 'react';
 import { ClubBasicFragment } from '../../api/generated';
 import { ClubImageUploadField } from '../assets/club-image-upload';
-import { TextArea, TextBox } from '../ui/input';
+import { FormikError } from '../ui/formik-error';
+import { FormikTextBox, FormikTextArea } from '../ui/formik-input';
 
 type Props = {
   clubId: string;
@@ -20,18 +22,20 @@ export const BasicEditFormFields = ({ clubId, currentClub }: Props) => {
       <div className='pl-2 w-full'>
         <label htmlFor='name'>部活名</label>
         <Field
-          as={TextBox}
+          component={FormikTextBox}
           name='name'
           placeholder='部活名'
           className='text-lg text-blue-light w-full'
         />
+        <FormikError name='name' />
         <label htmlFor='shortDescription'>短い説明</label>
         <Field
-          as={TextArea}
+          component={FormikTextArea}
           name='shortDescription'
           placeholder='短い説明'
           className='text-gray-700 my-1 w-full'
         />
+        <FormikError name='shortDescription' />
       </div>
     </div>
   );

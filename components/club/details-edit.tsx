@@ -1,7 +1,9 @@
 import { Field } from 'formik';
+import React from 'react';
 import { ClubDetailFragment } from '../../api/generated';
 import { ClubImageUploadField } from '../assets/club-image-upload';
-import { TextArea, TextBox } from '../ui/input';
+import { FormikError } from '../ui/formik-error';
+import { FormikTextArea, FormikTextBox } from '../ui/formik-input';
 
 type Props = {
   clubId: string;
@@ -20,15 +22,20 @@ export const DetailsEditFormFields = ({ clubId, currentClub }: Props) => {
         />
       </div>
       <label htmlFor='place'>活動場所</label>
-      <Field as={TextBox} name='place' />
+      <Field component={FormikTextBox} name='place' />
+      <FormikError name='place' />
       <label htmlFor='schedule'>活動時間</label>
-      <Field as={TextBox} name='schedule' />
+      <Field component={FormikTextBox} name='schedule' />
+      <FormikError name='schedule' />
       <label htmlFor='joinDescription'>入部方法</label>
-      <Field as={TextArea} name='joinDescription' />
+      <Field component={FormikTextArea} name='joinDescription' />
+      <FormikError name='joinDescription' />
       <label htmlFor='longDescription'>詳細解説</label>
-      <Field as={TextArea} name='longDescription' rows={10} />
+      <Field component={FormikTextArea} name='longDescription' rows={10} />
+      <FormikError name='longDescription' />
       <label htmlFor='contactUrl'>連絡先(URL)</label>
-      <Field as={TextBox} name='contactUrl' />
+      <Field component={FormikTextBox} name='contactUrl' />
+      <FormikError name='contactUrl' />
     </div>
   );
 };

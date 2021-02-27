@@ -14,6 +14,7 @@ import { AppContainer } from '../../../components/ui/container';
 import { Loading } from '../../../components/ui/loading';
 import { SectionTitle } from '../../../components/ui/section-title';
 import {
+  clubDtoValidator,
   convertClubToForm,
   convertFormToClubDto,
 } from '../../../utils/club-dto';
@@ -84,6 +85,9 @@ const ClubEdit = () => {
       <Formik
         initialValues={convertClubToForm(data!.club)}
         onSubmit={handleSubmit}
+        validationSchema={clubDtoValidator}
+        validateOnBlur
+        validateOnChange
       >
         <Form>
           <BasicEditFormFields
