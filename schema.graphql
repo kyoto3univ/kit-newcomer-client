@@ -3,6 +3,9 @@ schema {
   mutation: MutationRoot
 }
 
+# Directs the executor to query only when the field exists.
+directive @ifdef on FIELD
+
 type Asset {
   id: StringNumber!
   ownerId: StringNumber!
@@ -128,6 +131,7 @@ input UpdateAssetDto {
 }
 
 input UpdateClubDto {
+  name: String
   shortDescription: String
   longDescription: String
   joinDescription: String
@@ -136,6 +140,8 @@ input UpdateClubDto {
   videoUrl: String
   contactUrl: String
   topContentType: ClubTopImageType
+  topImageId: StringNumber
+  thumbImageId: StringNumber
 }
 
 scalar Upload

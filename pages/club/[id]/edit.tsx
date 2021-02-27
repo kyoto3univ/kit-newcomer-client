@@ -1,9 +1,13 @@
+import { Form, Formik } from 'formik';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { useGetClubDetailsQuery, UserPermission } from '../../../api/generated';
+import { BasicEditFormFields } from '../../../components/club/basic-edit';
+import { DetailsEditFormFields } from '../../../components/club/details-edit';
 import { AppContainer } from '../../../components/ui/container';
 import { Loading } from '../../../components/ui/loading';
 import { SectionTitle } from '../../../components/ui/section-title';
+import { convertClubToForm } from '../../../utils/club-dto';
 import {
   useAutoRedirect,
   usePermissionCheck,
@@ -56,6 +60,19 @@ const ClubEdit = () => {
   return (
     <AppContainer>
       <SectionTitle>{data!.club.name}の編集</SectionTitle>
+      <Formik initialValues={convertClubToForm(data!.club)} onSubmit={() => {}}>
+        <Form>
+          <BasicEditFormFields
+            clubId={data!.club.id}
+            currentClub={data!.club}
+          />
+          <hr />
+          <DetailsEditFormFields
+            clubId={data!.club.id}
+            currentClub={data!.club}
+          />
+        </Form>
+      </Formik>
     </AppContainer>
   );
 };
