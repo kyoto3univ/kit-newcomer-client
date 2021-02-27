@@ -12,11 +12,10 @@ export const Button: React.FunctionComponent<Props> = ({
   disabled,
   loading,
   children,
-  onClick,
+  ...props
 }) => {
   return (
     <button
-      onClick={onClick}
       className={clsx(
         'border-2',
         'rounded',
@@ -34,6 +33,7 @@ export const Button: React.FunctionComponent<Props> = ({
         },
       )}
       disabled={disabled}
+      {...props}
     >
       {loading && <Spin />}
       {children}
