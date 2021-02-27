@@ -78,9 +78,10 @@ export const ClubImageUpload = ({
   );
 };
 
-type FieldProps = Exclude<Props, 'currentAsset'> &
+type FieldProps = Omit<Props, 'currentAsset' | 'onAssetUpdate'> &
   FieldHookConfig<string> & {
     initialAsset?: AssetBasicFragment;
+    onAssetUpdate?: (asset: AssetBasicFragment | null) => void;
   };
 export const ClubImageUploadField = (props: FieldProps) => {
   const [, , { setValue }] = useField(props);
@@ -94,7 +95,9 @@ export const ClubImageUploadField = (props: FieldProps) => {
     (asset: AssetBasicFragment | null) => {
       setValue(asset?.id ?? '');
       setCurrentAsset(asset ?? undefined);
-      props.onAssetUpdate(asset);
+      if (props.onAssetUpdate) {
+        props.onAssetUpdate(asset);
+      }
     },
     [props.onAssetUpdate],
   );
