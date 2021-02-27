@@ -1,6 +1,12 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const { colors, screens, fontFamily } = require('tailwindcss/defaultTheme');
 
+const plugins = [];
+
+try {
+  plugins.push(require('@tailwindcss/forms'));
+} catch (e) {}
+
 module.exports = {
   purge: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
   darkMode: false,
@@ -32,4 +38,5 @@ module.exports = {
     },
     backgroundImage: {},
   },
+  plugins,
 };
