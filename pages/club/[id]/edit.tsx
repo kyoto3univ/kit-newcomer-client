@@ -1,42 +1,16 @@
-import { Form, Formik, useFormikContext } from 'formik';
 import { useRouter } from 'next/router';
 import React from 'react';
-import {
-  ClubDetailFragment,
-  useGetClubDetailsQuery,
-  UserPermission,
-  useUpdateClubMutation,
-} from '../../../api/generated';
-import { BasicEditFormFields } from '../../../components/club/basic-edit';
-import { DetailsEditFormFields } from '../../../components/club/details-edit';
-import { Button } from '../../../components/ui/button';
+import { useGetClubDetailsQuery, UserPermission } from '../../../api/generated';
+import { ClubContentEditForm } from '../../../components/club/edit-form';
 import { AppContainer } from '../../../components/ui/container';
 import { Loading } from '../../../components/ui/loading';
 import { SectionTitle } from '../../../components/ui/section-title';
-import {
-  clubDtoValidator,
-  convertClubToForm,
-  convertFormToClubDto,
-} from '../../../utils/club-dto';
 import {
   useAutoRedirect,
   usePermissionCheck,
   useUser,
 } from '../../../utils/use-user';
 
-const Submit = () => {
-  const { isSubmitting, isValid } = useFormikContext();
-
-  return (
-    <Button
-      type='submit'
-      disabled={isSubmitting || !isValid}
-      loading={isSubmitting}
-    >
-      保存する
-    </Button>
-  );
-};
 const ClubEdit = () => {
   const { isLoading, isLoggedIn } = useUser();
   const hasPermission = usePermissionCheck([
@@ -52,18 +26,6 @@ const ClubEdit = () => {
     {
       enabled: !isLoading && hasPermission,
     },
-  );
-  const { mutateAsync } = useUpdateClubMutation();
-
-  const handleSubmit = React.useCallback(
-    async (values: ClubDetailFragment) => {
-      const dto = convertFormToClubDto(values);
-      await mutateAsync({
-        id: query.id as string,
-        update: dto,
-      });
-    },
-    [query],
   );
 
   useAutoRedirect();
@@ -95,21 +57,7 @@ const ClubEdit = () => {
   return (
     <AppContainer>
       <SectionTitle>{data!.club.name}の編集</SectionTitle>
-      <Formik
-        initialValues={convertClubToForm(data!.club)}
-        onSubmit={handleSubmit}
-        validationSchema={clubDtoValidator}
-        validateOnBlur
-        validateOnChange
-      >
-        <Form>
-          <BasicEditFormFields />
-          <hr />
-          <DetailsEditFormFields />
-          <hr />
-          <Submit />
-        </Form>
-      </Formik>
+      <ClubContentEditForm club={data!.club} />
     </AppContainer>
   );
 };
