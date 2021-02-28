@@ -5,6 +5,7 @@ import { ClubContentEditForm } from '../../../components/club/edit-form';
 import { AppContainer } from '../../../components/ui/container';
 import { Loading } from '../../../components/ui/loading';
 import { SectionTitle } from '../../../components/ui/section-title';
+import { Tab, TabItem } from '../../../components/ui/tabs';
 import {
   useAutoRedirect,
   usePermissionCheck,
@@ -27,6 +28,9 @@ const ClubEdit = () => {
       enabled: !isLoading && hasPermission,
     },
   );
+  const [activeSection, setActiveSection] = React.useState<
+    'general' | 'members'
+  >('general');
 
   useAutoRedirect();
 
@@ -57,7 +61,25 @@ const ClubEdit = () => {
   return (
     <AppContainer>
       <SectionTitle>{data!.club.name}の編集</SectionTitle>
-      <ClubContentEditForm club={data!.club} />
+      <Tab>
+        <TabItem
+          active={activeSection === 'general'}
+          onClick={() => setActiveSection('general')}
+        >
+          部活情報
+        </TabItem>
+        <TabItem
+          active={activeSection === 'members'}
+          onClick={() => setActiveSection('members')}
+        >
+          部員編集
+        </TabItem>
+      </Tab>
+      {activeSection === 'general' ? (
+        <ClubContentEditForm club={data!.club} />
+      ) : (
+        <div></div>
+      )}
     </AppContainer>
   );
 };
