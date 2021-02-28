@@ -21,6 +21,7 @@ export const DetailsEditFormFields = ({ clubId, currentClub }: Props) => {
               name='topContentType'
               value='IMAGE'
               id='topContentType_IMAGE'
+              type='radio'
             />
             <label className='pl-2' htmlFor='topContentType_IMAGE'>
               画像
@@ -32,6 +33,7 @@ export const DetailsEditFormFields = ({ clubId, currentClub }: Props) => {
               name='topContentType'
               value='YOU_TUBE'
               id='topContentType_YOU_TUBE'
+              type='radio'
             />
             <label className='pl-2' htmlFor='topContentType_YOU_TUBE'>
               YouTube
