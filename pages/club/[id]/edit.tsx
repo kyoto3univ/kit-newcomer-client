@@ -1,4 +1,4 @@
-import { Form, Formik } from 'formik';
+import { Form, Formik, useFormikContext } from 'formik';
 import { useRouter } from 'next/router';
 import React from 'react';
 import {
@@ -24,6 +24,19 @@ import {
   useUser,
 } from '../../../utils/use-user';
 
+const Submit = () => {
+  const { isSubmitting, isValid } = useFormikContext();
+
+  return (
+    <Button
+      type='submit'
+      disabled={isSubmitting || !isValid}
+      loading={isSubmitting}
+    >
+      保存する
+    </Button>
+  );
+};
 const ClubEdit = () => {
   const { isLoading, isLoggedIn } = useUser();
   const hasPermission = usePermissionCheck([
@@ -40,12 +53,12 @@ const ClubEdit = () => {
       enabled: !isLoading && hasPermission,
     },
   );
-  const { mutate, isLoading: isUpdating } = useUpdateClubMutation();
+  const { mutateAsync } = useUpdateClubMutation();
 
   const handleSubmit = React.useCallback(
-    (values: ClubDetailFragment) => {
+    async (values: ClubDetailFragment) => {
       const dto = convertFormToClubDto(values);
-      mutate({
+      await mutateAsync({
         id: query.id as string,
         update: dto,
       });
@@ -94,9 +107,7 @@ const ClubEdit = () => {
           <hr />
           <DetailsEditFormFields />
           <hr />
-          <Button type='submit' disabled={isUpdating}>
-            保存する
-          </Button>
+          <Submit />
         </Form>
       </Formik>
     </AppContainer>
