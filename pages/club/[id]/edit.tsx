@@ -2,7 +2,7 @@ import { Form, Formik } from 'formik';
 import { useRouter } from 'next/router';
 import React from 'react';
 import {
-  UpdateClubDto,
+  ClubDetailFragment,
   useGetClubDetailsQuery,
   UserPermission,
   useUpdateClubMutation,
@@ -43,7 +43,7 @@ const ClubEdit = () => {
   const { mutate, isLoading: isUpdating } = useUpdateClubMutation();
 
   const handleSubmit = React.useCallback(
-    (values: UpdateClubDto) => {
+    (values: ClubDetailFragment) => {
       const dto = convertFormToClubDto(values);
       mutate({
         id: query.id as string,
@@ -90,15 +90,9 @@ const ClubEdit = () => {
         validateOnChange
       >
         <Form>
-          <BasicEditFormFields
-            clubId={data!.club.id}
-            currentClub={data!.club}
-          />
+          <BasicEditFormFields />
           <hr />
-          <DetailsEditFormFields
-            clubId={data!.club.id}
-            currentClub={data!.club}
-          />
+          <DetailsEditFormFields />
           <hr />
           <Button type='submit' disabled={isUpdating}>
             保存する

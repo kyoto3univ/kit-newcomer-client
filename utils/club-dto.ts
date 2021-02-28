@@ -5,7 +5,9 @@ import {
   UpdateClubDto,
 } from '../api/generated';
 
-export const convertClubToForm = (club: ClubDetailFragment): UpdateClubDto => {
+export const convertClubToForm = (
+  club: ClubDetailFragment,
+): ClubDetailFragment => {
   return {
     ...club,
     shortDescription: club.shortDescription ?? '',
@@ -15,13 +17,13 @@ export const convertClubToForm = (club: ClubDetailFragment): UpdateClubDto => {
     schedule: club.schedule ?? '',
     contactUrl: club.contactUrl ?? '',
     videoUrl: club.videoUrl ?? '',
-    thumbImageId: club.thumbImage?.id ?? '',
-    topImageId: club.topImage?.id ?? '',
   };
 };
 
-export const convertFormToClubDto = (form: UpdateClubDto): UpdateClubDto => {
-  const keys: Array<keyof UpdateClubDto> = [
+export const convertFormToClubDto = (
+  form: ClubDetailFragment,
+): UpdateClubDto => {
+  const keys: Array<keyof ClubDetailFragment> = [
     'contactUrl',
     'joinDescription',
     'longDescription',
@@ -29,9 +31,7 @@ export const convertFormToClubDto = (form: UpdateClubDto): UpdateClubDto => {
     'place',
     'schedule',
     'shortDescription',
-    'thumbImageId',
     'topContentType',
-    'topImageId',
     'videoUrl',
   ];
   const copyTarget = keys.filter(
@@ -43,7 +43,11 @@ export const convertFormToClubDto = (form: UpdateClubDto): UpdateClubDto => {
 
   // @ts-ignore
   copyTarget.forEach((key) => (output[key] = form[key]));
+  // @ts-ignore
   nullTarget.forEach((key) => (output[key] = null));
+
+  output['topImageId'] = form.topImage ? form.topImage.id : null;
+  output['thumbImageId'] = form.thumbImage ? form.thumbImage.id : null;
 
   return output;
 };
@@ -56,8 +60,8 @@ export const clubDtoValidator = yup.object().shape({
   place: yup.string().max(100),
   schedule: yup.string().max(100),
   shortDescription: yup.string().max(150),
-  thumbImageId: yup.number().positive().integer(),
-  topImageId: yup.number().positive().integer(),
+  thumbImage: yup.object().nullable(),
+  topImage: yup.object().nullable(),
   topContentType: yup
     .string()
     .oneOf(Object.values(ClubTopImageType))

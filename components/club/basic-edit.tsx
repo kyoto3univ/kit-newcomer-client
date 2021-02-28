@@ -1,22 +1,15 @@
 import { Field } from 'formik';
 import React from 'react';
-import { ClubBasicFragment } from '../../api/generated';
 import { ClubImageUploadField } from '../assets/club-image-upload';
 import { FormikError } from '../ui/formik-error';
 import { FormikTextBox, FormikTextArea } from '../ui/formik-input';
 
-type Props = {
-  clubId: string;
-  currentClub: ClubBasicFragment;
-};
-export const BasicEditFormFields = ({ clubId, currentClub }: Props) => {
+export const BasicEditFormFields = () => {
   return (
     <div className='py-2 flex flex-row'>
       <ClubImageUploadField
-        name='thumbImageId'
+        name='thumbImage'
         containerClassName='w-24 h-24'
-        initialAsset={currentClub.thumbImage ?? undefined}
-        clubId={clubId}
         allowEmpty
       />
       <div className='pl-2 w-full'>

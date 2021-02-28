@@ -1,16 +1,11 @@
 import { Field } from 'formik';
 import React from 'react';
-import { ClubDetailFragment } from '../../api/generated';
 import { FormikError } from '../ui/formik-error';
 import { FormikTextArea, FormikTextBox } from '../ui/formik-input';
 import { RadioButton } from '../ui/radio';
 import { TopImageField } from './top-image-field';
 
-type Props = {
-  clubId: string;
-  currentClub: ClubDetailFragment;
-};
-export const DetailsEditFormFields = ({ clubId, currentClub }: Props) => {
+export const DetailsEditFormFields = () => {
   return (
     <div className='py-2 flex flex-col'>
       <div className='flex flex-col items-center'>
@@ -40,7 +35,7 @@ export const DetailsEditFormFields = ({ clubId, currentClub }: Props) => {
             </label>
           </div>
         </div>
-        <TopImageField currentClub={currentClub} clubId={clubId} />
+        <TopImageField />
       </div>
       <label htmlFor='place'>活動場所</label>
       <Field component={FormikTextBox} name='place' />

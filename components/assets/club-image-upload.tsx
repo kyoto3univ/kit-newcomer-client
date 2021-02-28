@@ -78,23 +78,19 @@ export const ClubImageUpload = ({
   );
 };
 
-type FieldProps = Omit<Props, 'currentAsset' | 'onAssetUpdate'> &
-  FieldHookConfig<string> & {
-    initialAsset?: AssetBasicFragment;
+type FieldProps = Omit<Props, 'currentAsset' | 'onAssetUpdate' | 'clubId'> &
+  FieldHookConfig<AssetBasicFragment | null> & {
     onAssetUpdate?: (asset: AssetBasicFragment | null) => void;
   };
 export const ClubImageUploadField = (props: FieldProps) => {
-  const [, , { setValue }] = useField(props);
-  const [currentAsset, setCurrentAsset] = React.useState(props.initialAsset);
-
-  React.useEffect(() => {
-    setCurrentAsset(props.initialAsset);
-  }, [props.initialAsset]);
+  const [{ value }, , { setValue }] = useField<AssetBasicFragment | null>(
+    props,
+  );
+  const [{ value: clubId }] = useField('id');
 
   const handleAssetUpdate = React.useCallback(
     (asset: AssetBasicFragment | null) => {
-      setValue(asset?.id ?? '');
-      setCurrentAsset(asset ?? undefined);
+      setValue(asset);
       if (props.onAssetUpdate) {
         props.onAssetUpdate(asset);
       }
@@ -105,7 +101,8 @@ export const ClubImageUploadField = (props: FieldProps) => {
   return (
     <ClubImageUpload
       {...props}
-      currentAsset={currentAsset}
+      clubId={clubId}
+      currentAsset={value ?? undefined}
       onAssetUpdate={handleAssetUpdate}
     />
   );
