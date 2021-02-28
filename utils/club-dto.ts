@@ -62,5 +62,15 @@ export const clubDtoValidator = yup.object().shape({
     .string()
     .oneOf(Object.values(ClubTopImageType))
     .required(),
-  videoUrl: yup.string().url(),
+  videoUrl: yup.string().when('topContentType', {
+    is: ClubTopImageType.YouTube,
+    then: yup
+      .string()
+      .matches(
+        /^https?:\/\/((www\.)?youtube\.com\/watch\?v=|youtu\.be)[a-zA-Z0-9_-]+$/,
+        'https://youtube.com/watch?v=xxx or https://youtu.be/xxxの形式である必要があります',
+      )
+      .required(),
+    otherwise: yup.string(),
+  }),
 });

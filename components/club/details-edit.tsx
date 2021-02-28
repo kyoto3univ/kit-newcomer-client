@@ -1,9 +1,10 @@
 import { Field } from 'formik';
 import React from 'react';
 import { ClubDetailFragment } from '../../api/generated';
-import { ClubImageUploadField } from '../assets/club-image-upload';
 import { FormikError } from '../ui/formik-error';
 import { FormikTextArea, FormikTextBox } from '../ui/formik-input';
+import { RadioButton } from '../ui/radio';
+import { TopImageField } from './top-image-field';
 
 type Props = {
   clubId: string;
@@ -12,14 +13,32 @@ type Props = {
 export const DetailsEditFormFields = ({ clubId, currentClub }: Props) => {
   return (
     <div className='py-2 flex flex-col'>
-      <div className='flex justify-center'>
-        <ClubImageUploadField
-          containerClassName='md:w-2/5 w-full h-60'
-          name='topImageId'
-          clubId={clubId}
-          initialAsset={currentClub.topImage ?? undefined}
-          allowEmpty
-        />
+      <div className='flex flex-col items-center'>
+        <div className='flex flex-row my-1'>
+          <div className='mx-2'>
+            <Field
+              as={RadioButton}
+              name='topContentType'
+              value='IMAGE'
+              id='topContentType_IMAGE'
+            />
+            <label className='pl-2' htmlFor='topContentType_IMAGE'>
+              画像
+            </label>
+          </div>
+          <div className='mx-2'>
+            <Field
+              as={RadioButton}
+              name='topContentType'
+              value='YOU_TUBE'
+              id='topContentType_YOU_TUBE'
+            />
+            <label className='pl-2' htmlFor='topContentType_YOU_TUBE'>
+              YouTube
+            </label>
+          </div>
+        </div>
+        <TopImageField currentClub={currentClub} clubId={clubId} />
       </div>
       <label htmlFor='place'>活動場所</label>
       <Field component={FormikTextBox} name='place' />
