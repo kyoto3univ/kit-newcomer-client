@@ -18,8 +18,14 @@ type Props = {
   defaultSearch?: SearchOpts;
   open?: boolean;
   onSelect?: (user: UserInfoFragment) => void;
+  onDismiss?: () => void;
 };
-export const UserFinder = ({ defaultSearch, open, onSelect }: Props) => {
+export const UserFinder = ({
+  defaultSearch,
+  open,
+  onSelect,
+  onDismiss,
+}: Props) => {
   const [page, setPage] = React.useState(0);
   const [search, setSearch] = React.useState(defaultSearch);
   const { isLoading, isError, data } = useGetUsersQuery(
@@ -45,7 +51,7 @@ export const UserFinder = ({ defaultSearch, open, onSelect }: Props) => {
   );
 
   return (
-    <Dialog isOpen={open} aria-labelledby='Select'>
+    <Dialog isOpen={open} aria-labelledby='Select' onDismiss={onDismiss}>
       <SectionTitle>ユーザー選択</SectionTitle>
       <TextBox
         placeholder='ユーザー名で検索'
