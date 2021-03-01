@@ -36,11 +36,7 @@ fragment ClubDetail on ClubWithMembers {
   thumbImage {
     ...AssetBasic
   }
-  members {
-    user {
-      ...UserBasic
-    }
-  }
+  ...ClubMemberOnly
 }
 
 fragment ClubBasic on ClubWithMembers {
@@ -49,6 +45,15 @@ fragment ClubBasic on ClubWithMembers {
   shortDescription
   thumbImage {
     ...AssetBasic
+  }
+}
+
+fragment ClubMemberOnly on ClubWithMembers {
+  members {
+    level
+    user {
+      ...UserInfo
+    }
   }
 }
 
