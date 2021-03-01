@@ -5,20 +5,26 @@ import {
   UserInfoFragment,
   UserPermission,
 } from '../../api/generated';
+import { TextBox } from '../ui/input';
 import { Pager } from '../ui/pager';
 import { SectionTitle } from '../ui/section-title';
 import { Avatar } from './avatar';
 
-type Props = {
+type SearchOpts = {
   leastPermission?: UserPermission;
+  screenName?: string;
+};
+type Props = {
+  defaultSearch?: SearchOpts;
   open?: boolean;
   onSelect?: (user: UserInfoFragment) => void;
 };
-export const UserFinder = ({ leastPermission, open, onSelect }: Props) => {
+export const UserFinder = ({ defaultSearch, open, onSelect }: Props) => {
   const [page, setPage] = React.useState(0);
+  const [search, setSearch] = React.useState(defaultSearch);
   const { isLoading, isError, data } = useGetUsersQuery(
     {
-      leastPermission,
+      ...search,
       offset: page * 10,
       limit: 10,
     },
@@ -27,23 +33,42 @@ export const UserFinder = ({ leastPermission, open, onSelect }: Props) => {
     },
   );
 
+  const handleChangeScreenNameSearch = React.useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const newSearch: SearchOpts = { ...search, screenName: e.target.value };
+      if (newSearch.screenName === '') {
+        newSearch.screenName = undefined;
+      }
+      setSearch(newSearch);
+    },
+    [search],
+  );
+
   return (
     <Dialog isOpen={open} aria-labelledby='Select'>
       <SectionTitle>ユーザー選択</SectionTitle>
+      <TextBox
+        placeholder='ユーザー名で検索'
+        className='w-6/12'
+        onChange={handleChangeScreenNameSearch}
+      />
       {isLoading && <p>Loading...</p>}
       {isError && <p>Error</p>}
-      {data && (
-        <div className='my-1'>
-          {data.getUsers.items.map((item) => (
-            <UserListItem key={item.id} user={item} onSelect={onSelect} />
-          ))}
-          <Pager
-            total={Math.ceil(data.getUsers.count / 10)}
-            current={page}
-            onChange={(page) => setPage(page)}
-          />
-        </div>
-      )}
+      {data &&
+        (data.getUsers.count === 0 ? (
+          <p>No users</p>
+        ) : (
+          <div className='my-1'>
+            {data.getUsers.items.map((item) => (
+              <UserListItem key={item.id} user={item} onSelect={onSelect} />
+            ))}
+            <Pager
+              total={Math.ceil(data.getUsers.count / 10)}
+              current={page}
+              onChange={(page) => setPage(page)}
+            />
+          </div>
+        ))}
     </Dialog>
   );
 };

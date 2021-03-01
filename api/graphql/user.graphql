@@ -1,0 +1,13 @@
+query getUsers($screenName: String, $leastPermission: UserPermission, $offset: Int!, $limit: Int!) {
+  getUsers(
+    screenName: $screenName,
+    leastPermission: $leastPermission,
+    offset: $offset,
+    limit: $limit
+  ) {
+    count
+    items {
+      ...UserInfo
+    }
+  }
+}
