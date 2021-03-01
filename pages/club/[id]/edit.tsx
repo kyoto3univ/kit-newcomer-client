@@ -21,7 +21,7 @@ const ClubEdit = () => {
     UserPermission.ClubMember,
   ]);
   const { query } = useRouter();
-  const { data, isSuccess } = useGetClubDetailsQuery(
+  const { data, isSuccess, refetch } = useGetClubDetailsQuery(
     {
       id: query.id as string,
     },
@@ -79,7 +79,7 @@ const ClubEdit = () => {
       {activeSection === 'general' ? (
         <ClubContentEditForm club={data!.club} />
       ) : (
-        <ClubMembersEditForm club={data!.club} />
+        <ClubMembersEditForm club={data!.club} refetch={refetch} />
       )}
     </AppContainer>
   );

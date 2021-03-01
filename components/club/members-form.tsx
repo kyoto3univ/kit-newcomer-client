@@ -12,17 +12,19 @@ import { MemberItem } from './member-item';
 
 type Props = {
   club: ClubMemberOnlyFragment & ClubBasicFragment;
+  refetch: () => void;
 };
-export const ClubMembersEditForm = ({ club }: Props) => {
+export const ClubMembersEditForm = ({ club, refetch }: Props) => {
   const [isUserFinderOpen, setIsUserFinderOpen] = React.useState(false);
-  const { mutate, isLoading: isAdding } = useAddUserToClubMutation();
+  const { mutateAsync, isLoading: isAdding } = useAddUserToClubMutation();
   const handleAddClick = React.useCallback(() => setIsUserFinderOpen(true), []);
   const handleDismiss = React.useCallback(() => setIsUserFinderOpen(false), []);
-  const handleAddUser = React.useCallback((user: UserInfoFragment) => {
-    mutate({
+  const handleAddUser = React.useCallback(async (user: UserInfoFragment) => {
+    await mutateAsync({
       clubId: club.id,
       userId: user.id,
     });
+    refetch();
     setIsUserFinderOpen(false);
   }, []);
 
