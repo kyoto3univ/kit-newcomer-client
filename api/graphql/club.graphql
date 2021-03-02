@@ -77,3 +77,12 @@ query getMyClubs {
     }
   }
 }
+
+query getPublicClubs($offset: Int!, $limit: Int!) {
+  getClubs(offset: $offset, limit: $limit) {
+    count
+    items {
+      ...ClubBasic
+    }
+  }
+}
