@@ -5,8 +5,9 @@ import {
   ClubMemberOnlyFragment,
   useAddUserToClubMutation,
   UserInfoFragment,
+  UserPermission,
 } from '../../api/generated';
-import { useUser } from '../../utils/use-user';
+import { usePermissionCheck, useUser } from '../../utils/use-user';
 import { Button } from '../ui/button';
 import { UserFinder } from '../user/user-finder';
 import { MemberItem } from './member-item';
@@ -29,9 +30,16 @@ export const ClubMembersEditForm = ({ club, refetch }: Props) => {
     refetch();
     setIsUserFinderOpen(false);
   }, []);
-  const currentLevel = React.useMemo(() => {
-    return club.members.find((item) => item.user.id === user?.id)?.level;
-  }, [user, club.members]);
+  const hasUserPermission = usePermissionCheck([
+    UserPermission.Admin,
+    UserPermission.Moderator,
+  ]);
+  const isModifiable = React.useMemo(() => {
+    return (
+      club.members.find((item) => item.user.id === user?.id)?.level ===
+        ClubEditLevel.Owner || hasUserPermission
+    );
+  }, [user, club.members, hasUserPermission]);
 
   return (
     <div>
@@ -43,12 +51,12 @@ export const ClubMembersEditForm = ({ club, refetch }: Props) => {
               {...member}
               clubId={club.id}
               refetch={refetch}
-              currentLevel={currentLevel}
+              isModifiable={isModifiable}
             />
           );
         })}
       </div>
-      {currentLevel === ClubEditLevel.Owner && (
+      {isModifiable && (
         <>
           <Button onClick={handleAddClick} loading={isAdding}>
             追加

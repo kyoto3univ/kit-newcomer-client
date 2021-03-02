@@ -14,14 +14,14 @@ type Props = {
   level: ClubEditLevel;
   refetch: () => void;
   clubId: string;
-  currentLevel?: ClubEditLevel;
+  isModifiable: boolean;
 };
 export const MemberItem = ({
   user,
   level,
   clubId,
   refetch,
-  currentLevel,
+  isModifiable,
 }: Props) => {
   const { user: currentUser } = useUser();
   const { mutateAsync: deleteUser } = useDeleteUserFromClubMutation();
@@ -60,7 +60,7 @@ export const MemberItem = ({
           <span className='text-sm text-gray-500'>{user.screenName}</span>
         </div>
       </div>
-      {user.id != currentUser?.id && currentLevel === ClubEditLevel.Owner && (
+      {user.id != currentUser?.id && isModifiable && (
         <div>
           <select value={level} onChange={handleLevelChange}>
             {Object.values(ClubEditLevel).map((perm) => (
