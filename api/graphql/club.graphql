@@ -68,3 +68,11 @@ mutation updateClub($id: String!, $update: UpdateClubDto!) {
     ...ClubDetail
   }
 }
+
+query getMyClubs {
+  getMyClubs {
+    club {
+      ...ClubBasic
+    }
+  }
+}
