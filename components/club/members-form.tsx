@@ -1,4 +1,3 @@
-import { FieldArray, Form, Formik } from 'formik';
 import React from 'react';
 import {
   ClubBasicFragment,
@@ -29,31 +28,27 @@ export const ClubMembersEditForm = ({ club, refetch }: Props) => {
   }, []);
 
   return (
-    <Formik initialValues={{ members: club.members }} onSubmit={() => {}}>
-      <Form>
-        <FieldArray
-          name='members'
-          render={(helper) => {
-            return (
-              <div>
-                {helper.form.values.members.map(
-                  (member: ClubMemberOnlyFragment['members'][0]) => {
-                    return <MemberItem key={member.user.id} {...member} />;
-                  },
-                )}
-              </div>
-            );
-          }}
-        />
-        <Button onClick={handleAddClick} loading={isAdding}>
-          追加
-        </Button>
-        <UserFinder
-          open={isUserFinderOpen}
-          onDismiss={handleDismiss}
-          onSelect={handleAddUser}
-        />
-      </Form>
-    </Formik>
+    <div>
+      <div>
+        {club.members.map((member) => {
+          return (
+            <MemberItem
+              key={member.user.id}
+              {...member}
+              clubId={club.id}
+              refetch={refetch}
+            />
+          );
+        })}
+      </div>
+      <Button onClick={handleAddClick} loading={isAdding}>
+        追加
+      </Button>
+      <UserFinder
+        open={isUserFinderOpen}
+        onDismiss={handleDismiss}
+        onSelect={handleAddUser}
+      />
+    </div>
   );
 };

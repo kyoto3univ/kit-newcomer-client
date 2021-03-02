@@ -21,3 +21,28 @@ mutation addUserToClub($userId: StringNumber!, $clubId: String!) {
     id
   }
 }
+
+mutation deleteUserFromClub($userId: StringNumber!, $clubId: String!) {
+  deleteMemberFromClub(
+    userId: $userId,
+    clubId: $clubId,
+  ) {
+    id
+  }
+}
+
+mutation changeUserLevel($userId: StringNumber!, $clubId: String!, $level: ClubEditLevel!) {
+  deleteMemberFromClub(
+    userId: $userId,
+    clubId: $clubId,
+  ) {
+    id
+  }
+  addMemberToClub(
+    userId: $userId,
+    clubId: $clubId,
+    level: $level
+  ) {
+    id
+  }
+}
