@@ -22,7 +22,14 @@ export const ClubListItem = ({ club, link = 'view' }: Props) => {
           />
         )}
         <div className='pl-2'>
-          <h2 className='text-lg text-blue-light'>{club.name}</h2>
+          <h2 className='text-lg text-blue-light'>
+            {club.name}
+            {!club.isPublished && (
+              <span className='border rounded bg-gray-300 text-gray-800 ml-2 px-1'>
+                未公開
+              </span>
+            )}
+          </h2>
           {club.shortDescription && (
             <p className='text-gray-700 py-1'>{club.shortDescription}</p>
           )}
