@@ -6,7 +6,8 @@ export const SectionTitle: React.FunctionComponent = ({ children }) => {
       className={clsx(
         'text-blue-light',
         'border-b-4',
-        'text-xl',
+        'text-2xl',
+        'font-bold',
         'border-blue',
       )}
     >
