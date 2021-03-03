@@ -1,16 +1,9 @@
 import dynamic from 'next/dynamic';
 
-const Viewer = dynamic(
+export const MdRenderer = dynamic(
   async () => {
-    const edit = await import('@toast-ui/react-editor');
-    return edit.Viewer;
+    const dyn = await import('./md-dyn');
+    return dyn.MdRenderer;
   },
   { ssr: false },
 );
-
-type Props = {
-  content: string;
-};
-export const MdRenderer = ({ content }: Props) => {
-  return <Viewer initialValue={content} />;
-};
