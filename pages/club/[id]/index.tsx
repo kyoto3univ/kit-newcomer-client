@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 import { useGetClubDetailsQuery } from '../../../api/generated';
+import { MdRenderer } from '../../../components/club/markdown/md-render';
 import { TopImage } from '../../../components/club/top-image';
 import { AppContainer } from '../../../components/ui/container';
 import { Loading } from '../../../components/ui/loading';
@@ -7,9 +8,12 @@ import { SectionTitle } from '../../../components/ui/section-title';
 
 const ClubDetailPage = () => {
   const { query } = useRouter();
-  const { data, isLoading, isError } = useGetClubDetailsQuery({
-    id: query.id as string,
-  });
+  const { data, isLoading, isError } = useGetClubDetailsQuery(
+    {
+      id: query.id as string,
+    },
+    { enabled: !!query.id },
+  );
 
   if (isLoading) {
     return (
@@ -51,7 +55,12 @@ const ClubDetailPage = () => {
           </>
         )}
       </dl>
-      <p className='py-4'>{data.club.longDescription}</p>
+      {data.club.longDescription && (
+        <>
+          <h3 className='font-bold'>活動案内</h3>
+          <MdRenderer content={data.club.longDescription} />
+        </>
+      )}
       <dl>
         {data.club.contactUrl && (
           <>
