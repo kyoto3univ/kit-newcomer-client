@@ -48,7 +48,6 @@ export const ClubMarkdownEditorField = ({ name }: Props) => {
 
   const handleChange = React.useCallback(() => {
     const md: string = editorRef.current?.getInstance()?.getMarkdown();
-    console.log(md);
     setValue(md ?? '');
   }, [editorRef]);
 
