@@ -11,6 +11,32 @@ const Editor =
       require('@toast-ui/react-editor').Editor
     : () => null;
 
+const TOOLBAR_ITEMS = [
+  'heading',
+  'bold',
+  'italic',
+  'strike',
+  'divider',
+  'hr',
+  'ul',
+  'ol',
+  'task',
+  'divider',
+  'table',
+  {
+    type: 'button',
+    options: {
+      className: 'tui-image tui-toolbar-icons',
+      event: 'clickImageButton',
+      tooltip: 'Insert image',
+    },
+  },
+  'link',
+  'divider',
+  'quote',
+  'code',
+  'codeblock',
+];
 type Props = {
   name: string;
 };
@@ -36,22 +62,6 @@ export const ClubMarkdownEditorField = ({ name }: Props) => {
       if (!toolbar || !buttons) return;
 
       if (editor.eventManager._hasEventType('clickImageButton')) return;
-
-      let imageBtn = buttons.findIndex((btn) => btn.getName() === 'image');
-      if (imageBtn >= 0) {
-        toolbar.removeItem(imageBtn);
-      } else {
-        imageBtn = 10;
-      }
-
-      toolbar.insertItem(imageBtn, {
-        type: 'button',
-        options: {
-          className: 'tui-image tui-toolbar-icons',
-          event: 'clickImageButton',
-          tooltip: 'Insert image',
-        },
-      });
 
       editor.eventManager.addEventType('clickImageButton');
       editor.eventManager.listen('clickImageButton', () => {
@@ -97,6 +107,7 @@ export const ClubMarkdownEditorField = ({ name }: Props) => {
         onChange={handleChange}
         ref={editorRef}
         height='auto'
+        toolbarItems={TOOLBAR_ITEMS}
       />
       <AssetSelectDialog
         clubId={clubId}
