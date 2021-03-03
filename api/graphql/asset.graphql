@@ -1,5 +1,8 @@
 fragment AssetDetails on Asset {
-  ...AssetBasic
+  id
+  name
+  alternativeDescription
+  filePath
   imageHeight
   imageWidth
 }

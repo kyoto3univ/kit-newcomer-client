@@ -17,6 +17,10 @@ fragment UserBasic on User {
   icon
 }
 
+fragment ClubModeration on ClubWithMembers {
+  moderationState
+}
+
 fragment ClubDetail on ClubWithMembers {
   id
   name
@@ -37,6 +41,7 @@ fragment ClubDetail on ClubWithMembers {
     ...AssetBasic
   }
   ...ClubMemberOnly
+  ...ClubModeration
 }
 
 fragment ClubBasic on ClubWithMembers {
@@ -84,5 +89,23 @@ query getPublicClubs($offset: Int!, $limit: Int!) {
     items {
       ...ClubBasic
     }
+  }
+}
+
+mutation requestModeration($id: String!) {
+  changeModerationState(id: $id, moderationState: WAITING) {
+    id
+  }
+}
+
+mutation acceptModeration($id: String!) {
+  changeModerationState(id: $id, moderationState: ACCEPTED) {
+    id
+  }
+}
+
+mutation rejectModeration($id: String!) {
+  changeModerationState(id: $id, moderationState: REJECTED) {
+    id
   }
 }
