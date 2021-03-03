@@ -4,6 +4,8 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { AppHeader } from '../components/app-header';
 
 import '../styles/base.css';
+import 'codemirror/lib/codemirror.css';
+import '@toast-ui/editor/dist/toastui-editor.css';
 
 const App = ({ Component, pageProps }: AppProps) => {
   const queryClientRef = React.useRef<QueryClient>();

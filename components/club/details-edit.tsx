@@ -3,6 +3,7 @@ import React from 'react';
 import { FormikError } from '../ui/formik-error';
 import { FormikTextArea, FormikTextBox } from '../ui/formik-input';
 import { RadioButton } from '../ui/radio';
+import { ClubMarkdownEditorField } from './markdown/md-edit-field';
 import { TopImageField } from './top-image-field';
 
 export const DetailsEditFormFields = () => {
@@ -47,7 +48,7 @@ export const DetailsEditFormFields = () => {
       <Field component={FormikTextArea} name='joinDescription' />
       <FormikError name='joinDescription' />
       <label htmlFor='longDescription'>詳細解説</label>
-      <Field component={FormikTextArea} name='longDescription' rows={10} />
+      <ClubMarkdownEditorField name='longDescription' />
       <FormikError name='longDescription' />
       <label htmlFor='contactUrl'>連絡先(URL)</label>
       <Field component={FormikTextBox} name='contactUrl' />
