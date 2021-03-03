@@ -521,10 +521,10 @@
   dependencies:
     purgecss "^3.1.3"
 
-"@graphql-codegen/cli@^1.20.1":
-  version "1.20.1"
-  resolved "https://registry.yarnpkg.com/@graphql-codegen/cli/-/cli-1.20.1.tgz#3b42eddb4ddbfc6ad37d0a838267165f77342e14"
-  integrity sha512-jT5aMxIniER/gg0/sfx+BPmvI2ZAncQ6ZT/xkiFvXcYMiL9tDiAcVYJTmXcRdMTEIZnlzw3rhE4VPYiw1KqruQ==
+"@graphql-codegen/cli@^1.21.1":
+  version "1.21.1"
+  resolved "https://registry.yarnpkg.com/@graphql-codegen/cli/-/cli-1.21.1.tgz#fa1666ea5f1751e158d6d200c58f8228ad2f98ed"
+  integrity sha512-xlOmpKWID2zWOwm9mtjnOCA7qsQ8tJ34RYkKLyGMPoKaTmyWwKeAWpAH1qdukZT5AXDO7G2cZU5AdF1TmYEPUA==
   dependencies:
     "@graphql-codegen/core" "1.17.9"
     "@graphql-codegen/plugin-helpers" "^1.18.2"
@@ -609,10 +609,10 @@
     auto-bind "~4.0.0"
     tslib "~2.1.0"
 
-"@graphql-codegen/typescript-react-query@^1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@graphql-codegen/typescript-react-query/-/typescript-react-query-1.2.0.tgz#bf3c0a1b649b0180eeba61f2a76cb4af79496797"
-  integrity sha512-PxmElzNziFR85sVklm2hznGt+9oVsB3W7lV1jlKIuaCpe+VWZrpuIF0suL3wjilJR/1OBKu/Kk/ogJGZT2V8UQ==
+"@graphql-codegen/typescript-react-query@^1.2.2":
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/@graphql-codegen/typescript-react-query/-/typescript-react-query-1.2.2.tgz#3fe2359a389e59f969eab5d99db97f832cab3ceb"
+  integrity sha512-nBAPiEQsSc23a0RdXaY/sbMPgQnpSrKX/zOepKE/GzlC4mxDGHFLvyk8jyn9BJGRAxnKyiDLJkAXLWPVKhZRgA==
   dependencies:
     "@graphql-codegen/plugin-helpers" "^1.18.2"
     "@graphql-codegen/visitor-plugin-common" "^1.18.3"
