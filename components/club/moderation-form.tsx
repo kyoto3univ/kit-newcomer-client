@@ -16,7 +16,7 @@ type Props = {
 };
 
 export const ClubModerationForm = ({ club, refetch }: Props) => {
-  const isRequestable = useClubEditable(club, ClubEditLevel.Owner);
+  const isRequestable = useClubEditable(club, [ClubEditLevel.Owner]);
 
   const {
     mutateAsync: requestModeration,
