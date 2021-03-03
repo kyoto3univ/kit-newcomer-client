@@ -1,5 +1,10 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const { colors, screens, fontFamily } = require('tailwindcss/defaultTheme');
+const {
+  colors,
+  screens,
+  fontFamily,
+  gridTemplateColumns,
+} = require('tailwindcss/defaultTheme');
 
 const plugins = [];
 
@@ -37,6 +42,10 @@ module.exports = {
       ],
     },
     backgroundImage: {},
+    gridTemplateColumns: {
+      ...gridTemplateColumns,
+      cards: 'repeat(auto-fit, minmax(auto, 360px))',
+    },
   },
   plugins,
 };
