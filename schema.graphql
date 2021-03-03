@@ -28,6 +28,13 @@ enum ClubEditLevel {
   OWNER
 }
 
+enum ClubModerationState {
+  NOT_ACCEPTED
+  WAITING
+  REJECTED
+  ACCEPTED
+}
+
 type ClubPaging {
   items: [ClubWithMembers!]!
   count: Int!
@@ -47,6 +54,7 @@ type ClubWithMembers {
   id: String!
   name: String!
   isPublished: Boolean!
+  moderationState: ClubModerationState!
   shortDescription: String
   longDescription: String
   joinDescription: String
@@ -82,6 +90,10 @@ type MutationRoot {
   createNewClub(name: String!): ClubWithMembers!
   updateClub(id: String!, update: UpdateClubDto!): ClubWithMembers!
   changePublishState(id: String!, isPublished: Boolean!): ClubWithMembers!
+  changeModerationState(
+    id: String!
+    moderationState: ClubModerationState!
+  ): ClubWithMembers!
   addMemberToClub(
     clubId: String!
     userId: StringNumber!
