@@ -109,3 +109,9 @@ mutation rejectModeration($id: String!) {
     id
   }
 }
+
+mutation setClubPublish($id: String!, $published: Boolean!) {
+  changePublishState(id: $id, isPublished: $published) {
+    id
+  }
+}

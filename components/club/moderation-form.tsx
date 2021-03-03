@@ -4,6 +4,7 @@ import {
   ClubEditLevel,
   ClubModerationState,
   useRequestModerationMutation,
+  useSetClubPublishMutation,
 } from '../../api/generated';
 import { useClubEditable } from '../../utils/modify-check';
 import { Alert } from '../ui/alert';
@@ -21,21 +22,37 @@ export const ClubModerationForm = ({ club, refetch }: Props) => {
     mutateAsync: requestModeration,
     isLoading: isRequestingModeration,
   } = useRequestModerationMutation();
+  const {
+    mutateAsync: setPublish,
+    isLoading: isSettingPublish,
+  } = useSetClubPublishMutation();
   const handleRequest = React.useCallback(async () => {
     await requestModeration({ id: club.id });
     refetch();
   }, []);
+  const handlePublish = React.useCallback(async () => {
+    await setPublish({ id: club.id, published: true });
+    refetch();
+  }, []);
+  const handleUnpublish = React.useCallback(async () => {
+    await setPublish({ id: club.id, published: false });
+    refetch();
+  }, []);
 
   const isLoading = React.useMemo(() => {
-    return isRequestingModeration;
-  }, [isRequestingModeration]);
+    return isRequestingModeration || isSettingPublish;
+  }, [isRequestingModeration, isSettingPublish]);
 
   if (club.isPublished) {
     return (
       <Alert>
         この活動は公開済みです．
         {isRequestable && (
-          <Button loading={isLoading} disabled={isLoading}>
+          <Button
+            loading={isLoading}
+            disabled={isLoading}
+            onClick={handleUnpublish}
+          >
             非公開にする
           </Button>
         )}
@@ -80,7 +97,11 @@ export const ClubModerationForm = ({ club, refetch }: Props) => {
       <Alert>
         掲載が承認されました！活動を公開できます！
         {isRequestable && (
-          <Button loading={isLoading} disabled={isLoading}>
+          <Button
+            loading={isLoading}
+            disabled={isLoading}
+            onClick={handlePublish}
+          >
             公開する
           </Button>
         )}
