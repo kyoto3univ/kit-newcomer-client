@@ -3,6 +3,7 @@ import React from 'react';
 import { useGetClubDetailsQuery, UserPermission } from '../../../api/generated';
 import { ClubContentEditForm } from '../../../components/club/edit-form';
 import { ClubMembersEditForm } from '../../../components/club/members-form';
+import { ClubModerationForm } from '../../../components/club/moderation-form';
 import { AppContainer } from '../../../components/ui/container';
 import { Loading } from '../../../components/ui/loading';
 import { SectionTitle } from '../../../components/ui/section-title';
@@ -62,6 +63,7 @@ const ClubEdit = () => {
   return (
     <AppContainer>
       <SectionTitle>{data!.club.name}の編集</SectionTitle>
+      <ClubModerationForm club={data!.club} refetch={refetch} />
       <Tab>
         <TabItem
           active={activeSection === 'general'}
