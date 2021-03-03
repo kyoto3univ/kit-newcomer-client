@@ -9,6 +9,8 @@ export const useUser = () => {
       retry: false,
       enabled: process.browser,
       refetchOnMount: false,
+      refetchOnWindowFocus: false,
+      refetchInterval: false,
       staleTime: 1000 * 60 * 60,
     },
   );
