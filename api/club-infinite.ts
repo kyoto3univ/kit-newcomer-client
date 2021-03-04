@@ -6,9 +6,10 @@ import {
   GetPublicClubsQueryVariables,
   GetPublicClubsDocument,
   ClubBasicFragment,
-  GetModerationWaitClubsQuery,
-  GetModerationWaitClubsQueryVariables,
-  GetModerationWaitClubsDocument,
+  GetAllClubsQuery,
+  GetAllClubsDocument,
+  GetAllClubsQueryVariables,
+  ClubModerationState,
 } from './generated';
 
 export const useGetPublicClubsInfiniteQuery = (limit = 30) => {
@@ -44,17 +45,21 @@ export const useGetPublicClubsInfiniteQuery = (limit = 30) => {
   return { ...otherProps, count, items };
 };
 
-export const useGetModerationWaitClubsInfiniteQuery = (limit = 30) => {
+export const useAllClubsInfiniteQuery = (
+  moderationState: ClubModerationState | undefined,
+  limit = 30,
+) => {
   const { data, ...otherProps } = useInfiniteQuery(
-    'getModerationWaitClubs',
+    ['getAllClubs', { moderationState }],
     ({ pageParam = 0 }) => {
-      return fetchGQL<
-        GetModerationWaitClubsQuery,
-        GetModerationWaitClubsQueryVariables
-      >(GetModerationWaitClubsDocument, {
-        limit,
-        offset: pageParam,
-      })();
+      return fetchGQL<GetAllClubsQuery, GetAllClubsQueryVariables>(
+        GetAllClubsDocument,
+        {
+          limit,
+          offset: pageParam,
+          moderationState,
+        },
+      )();
     },
     {
       getNextPageParam(lastPage, pages) {

@@ -60,7 +60,7 @@ const MypageIndex = () => {
               <h2 className='text-xl'>管理</h2>
               <div className='grid grid-cols-cards col-auto gap-4'>
                 {showModeration && (
-                  <Link href='/me/moderation' passHref>
+                  <Link href='/admin/moderation' passHref>
                     <ContentCard
                       title='承認待ちの活動'
                       description={`${
@@ -75,9 +75,14 @@ const MypageIndex = () => {
                   </Link>
                 )}
                 {showAdmin && (
-                  <Link href='/admin/users' passHref>
-                    <ContentCard title='利用者情報' />
-                  </Link>
+                  <>
+                    <Link href='/admin/moderation?all=1' passHref>
+                      <ContentCard title='全ての活動' />
+                    </Link>
+                    <Link href='/admin/users' passHref>
+                      <ContentCard title='利用者情報' />
+                    </Link>
+                  </>
                 )}
               </div>
             </section>

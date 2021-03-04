@@ -1,6 +1,8 @@
+import { useRouter } from 'next/router';
 import React from 'react';
 import { useInView } from 'react-intersection-observer';
-import { useGetModerationWaitClubsInfiniteQuery } from '../../api/club-infinite';
+import { useAllClubsInfiniteQuery } from '../../api/club-infinite';
+import { ClubModerationState } from '../../api/generated';
 import { ClubListItem } from '../../components/club/list-item';
 import { AppContainer } from '../../components/ui/container';
 import { Loading } from '../../components/ui/loading';
@@ -8,6 +10,7 @@ import { SectionTitle } from '../../components/ui/section-title';
 import { useAutoRedirect } from '../../utils/use-user';
 
 const ClubModerationPage = () => {
+  const { query } = useRouter();
   const {
     count,
     items,
@@ -16,7 +19,10 @@ const ClubModerationPage = () => {
     isError,
     isFetchingNextPage,
     fetchNextPage,
-  } = useGetModerationWaitClubsInfiniteQuery(15);
+  } = useAllClubsInfiniteQuery(
+    query['all'] ? undefined : ClubModerationState.Waiting,
+    15,
+  );
   const { ref, inView } = useInView();
 
   useAutoRedirect();
@@ -29,7 +35,7 @@ const ClubModerationPage = () => {
 
   return (
     <AppContainer>
-      <SectionTitle>承認待ち活動</SectionTitle>
+      <SectionTitle>活動一覧</SectionTitle>
 
       {isLoading ? (
         <Loading />
