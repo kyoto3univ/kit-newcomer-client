@@ -29,11 +29,14 @@ export const Pager = ({ total, current, onChange }: Props) => {
 
   return (
     <nav className='mt-4 flex -space-x-px justify-center'>
-      {buttons.map((btn) =>
+      {buttons.map((btn, i) =>
         btn === -1 ? (
-          <a className='px-1 py-1 border border-gray-300'>...</a>
+          <a key={`ph${i}`} className='px-1 py-1 border border-gray-300'>
+            ...
+          </a>
         ) : (
           <a
+            key={btn}
             className={clsx('px-3 py-1 border border-gray-300 cursor-pointer', {
               'bg-blue-light': btn === current,
               'hover:bg-gray-400': btn != current,

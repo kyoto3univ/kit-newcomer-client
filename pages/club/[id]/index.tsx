@@ -52,7 +52,9 @@ const ClubDetailPage = () => {
       {isMember && (
         <Alert>
           <Link href='/club/[id]/edit' as={`/club/${data.club.id}/edit`}>
-            <Button>編集する</Button>
+            <a>
+              <Button>編集する</Button>
+            </a>
           </Link>
         </Alert>
       )}
