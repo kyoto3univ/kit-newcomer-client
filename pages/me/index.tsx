@@ -17,6 +17,7 @@ import {
 
 const MypageIndex = () => {
   const { isLoading, isLoggedIn, user } = useUser();
+  const showAdmin = usePermissionCheck([UserPermission.Admin]);
   const showModeration = usePermissionCheck([
     UserPermission.Admin,
     UserPermission.Moderator,
@@ -69,6 +70,11 @@ const MypageIndex = () => {
                 {showNewClub && (
                   <Link href='/new/club' passHref>
                     <ContentCard title='新しい部活を作成' />
+                  </Link>
+                )}
+                {showAdmin && (
+                  <Link href='/admin/users' passHref>
+                    <ContentCard title='利用者情報' />
                   </Link>
                 )}
               </div>
