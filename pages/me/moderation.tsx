@@ -5,6 +5,7 @@ import { ClubListItem } from '../../components/club/list-item';
 import { AppContainer } from '../../components/ui/container';
 import { Loading } from '../../components/ui/loading';
 import { SectionTitle } from '../../components/ui/section-title';
+import { useAutoRedirect } from '../../utils/use-user';
 
 const ClubModerationPage = () => {
   const {
@@ -12,10 +13,13 @@ const ClubModerationPage = () => {
     items,
     hasNextPage,
     isLoading,
+    isError,
     isFetchingNextPage,
     fetchNextPage,
   } = useGetModerationWaitClubsInfiniteQuery(15);
   const { ref, inView } = useInView();
+
+  useAutoRedirect();
 
   React.useEffect(() => {
     if (inView) {
@@ -29,12 +33,15 @@ const ClubModerationPage = () => {
 
       {isLoading ? (
         <Loading />
+      ) : isError ? (
+        <AppContainer>
+          <p>Error</p>
+        </AppContainer>
       ) : (
         <div>
           <p>{count}件</p>
-          {items!.map((item) => (
-            <ClubListItem key={item.id} club={item} />
-          ))}
+          {items?.map((item) => <ClubListItem key={item.id} club={item} />) ??
+            null}
           {hasNextPage &&
             (isFetchingNextPage ? <Loading /> : <div ref={ref} />)}
         </div>

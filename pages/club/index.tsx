@@ -13,6 +13,7 @@ const ClubListPage = () => {
     hasNextPage,
     isLoading,
     isFetchingNextPage,
+    isError,
     fetchNextPage,
   } = useGetPublicClubsInfiniteQuery(15);
   const { ref, inView } = useInView();
@@ -29,6 +30,10 @@ const ClubListPage = () => {
 
       {isLoading ? (
         <Loading />
+      ) : isError ? (
+        <AppContainer>
+          <p>Error</p>
+        </AppContainer>
       ) : (
         <div>
           <p>{count}件</p>
