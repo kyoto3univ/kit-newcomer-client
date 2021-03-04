@@ -10,7 +10,14 @@ import '@toast-ui/editor/dist/toastui-editor.css';
 const App = ({ Component, pageProps }: AppProps) => {
   const queryClientRef = React.useRef<QueryClient>();
   if (!queryClientRef.current) {
-    queryClientRef.current = new QueryClient();
+    queryClientRef.current = new QueryClient({
+      defaultOptions: {
+        queries: {
+          refetchOnWindowFocus: false,
+          retry: false,
+        },
+      },
+    });
   }
 
   return (
