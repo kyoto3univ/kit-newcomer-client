@@ -21,6 +21,11 @@ const MypageIndex = () => {
     UserPermission.Admin,
     UserPermission.Moderator,
   ]);
+  const showNewClub = usePermissionCheck([
+    UserPermission.Admin,
+    UserPermission.Moderator,
+    UserPermission.ClubMember,
+  ]);
   const { data: moderationInfo } = useGetModerationWaitCountQuery(
     {},
     {
@@ -48,10 +53,10 @@ const MypageIndex = () => {
               <h2 className='text-xl'>所属している部活動</h2>
               <BelongClubList />
             </section>
-            {showModeration && (
-              <section className='mb-2'>
-                <h2 className='text-xl'>管理</h2>
-                <div className='grid grid-cols-cards col-auto gap-4'>
+            <section className='mb-2'>
+              <h2 className='text-xl'>管理</h2>
+              <div className='grid grid-cols-cards col-auto gap-4'>
+                {showModeration && (
                   <Link href='/me/moderation' passHref>
                     <ContentCard
                       title='承認待ちの活動'
@@ -60,9 +65,14 @@ const MypageIndex = () => {
                       }件の承認待ちがあります`}
                     />
                   </Link>
-                </div>
-              </section>
-            )}
+                )}
+                {showNewClub && (
+                  <Link href='/new/club' passHref>
+                    <ContentCard title='新しい部活を作成' />
+                  </Link>
+                )}
+              </div>
+            </section>
           </div>
         </>
       )}
