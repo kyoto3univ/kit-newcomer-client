@@ -8,7 +8,7 @@ import { usePermissionCheck, useUser } from './use-user';
 
 export const useClubEditable = (
   club?: ClubMemberOnlyFragment,
-  levels = [ClubEditLevel.Editor],
+  levels = [ClubEditLevel.Editor, ClubEditLevel.Owner],
 ) => {
   const enforcePerm = useIsModerator();
   const isMember = useIsMember(club, levels);
@@ -19,7 +19,7 @@ export const useClubEditable = (
 
 export const useIsMember = (
   club?: ClubMemberOnlyFragment,
-  levels = [ClubEditLevel.Editor],
+  levels = [ClubEditLevel.Editor, ClubEditLevel.Owner],
 ) => {
   const { user } = useUser();
   const isMember = React.useMemo(() => {

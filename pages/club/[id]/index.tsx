@@ -1,19 +1,26 @@
+import Link from 'next/link';
 import { useRouter } from 'next/router';
+import React from 'react';
 import { useGetClubDetailsQuery } from '../../../api/generated';
+import { ClubAdminModerationForm } from '../../../components/club/admin-moderation-form';
 import { MdRenderer } from '../../../components/club/markdown/md-render';
 import { TopImage } from '../../../components/club/top-image';
+import { Alert } from '../../../components/ui/alert';
+import { Button } from '../../../components/ui/button';
 import { AppContainer } from '../../../components/ui/container';
 import { Loading } from '../../../components/ui/loading';
 import { SectionTitle } from '../../../components/ui/section-title';
+import { useIsMember } from '../../../utils/modify-check';
 
 const ClubDetailPage = () => {
   const { query } = useRouter();
-  const { data, isLoading, isError } = useGetClubDetailsQuery(
+  const { data, isLoading, isError, refetch } = useGetClubDetailsQuery(
     {
       id: query.id as string,
     },
     { enabled: !!query.id },
   );
+  const isMember = useIsMember(data?.club);
 
   if (isLoading) {
     return (
@@ -33,7 +40,22 @@ const ClubDetailPage = () => {
 
   return (
     <AppContainer>
-      <SectionTitle>{data.club.name}</SectionTitle>
+      <SectionTitle>
+        {data.club.name}
+        {!data.club.isPublished && (
+          <span className='border rounded bg-gray-300 text-gray-800 ml-2 px-1'>
+            未公開
+          </span>
+        )}
+      </SectionTitle>
+
+      {isMember && (
+        <Alert>
+          <Link href='/club/[id]/edit' as={`/club/${data.club.id}/edit`}>
+            <Button>編集する</Button>
+          </Link>
+        </Alert>
+      )}
       {data.club.topImage && <TopImage asset={data.club.topImage} />}
       <dl>
         {data.club.place && (
@@ -71,6 +93,7 @@ const ClubDetailPage = () => {
           </>
         )}
       </dl>
+      <ClubAdminModerationForm club={data.club} refetch={refetch} />
     </AppContainer>
   );
 };
