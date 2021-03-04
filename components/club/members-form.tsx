@@ -9,7 +9,7 @@ import {
 } from '../../api/generated';
 import { usePermissionCheck, useUser } from '../../utils/use-user';
 import { Button } from '../ui/button';
-import { UserFinder } from '../user/user-finder';
+import { UserFinderDialog } from '../user/user-finder-dialog';
 import { MemberItem } from './member-item';
 
 type Props = {
@@ -61,7 +61,7 @@ export const ClubMembersEditForm = ({ club, refetch }: Props) => {
           <Button onClick={handleAddClick} loading={isAdding}>
             追加
           </Button>
-          <UserFinder
+          <UserFinderDialog
             open={isUserFinderOpen}
             onDismiss={handleDismiss}
             onSelect={handleAddUser}

@@ -1,4 +1,3 @@
-import Dialog from '@reach/dialog';
 import React from 'react';
 import {
   useGetUsersQuery,
@@ -7,7 +6,6 @@ import {
 } from '../../api/generated';
 import { TextBox } from '../ui/input';
 import { Pager } from '../ui/pager';
-import { SectionTitle } from '../ui/section-title';
 import { Avatar } from './avatar';
 
 type SearchOpts = {
@@ -16,16 +14,9 @@ type SearchOpts = {
 };
 type Props = {
   defaultSearch?: SearchOpts;
-  open?: boolean;
   onSelect?: (user: UserInfoFragment) => void;
-  onDismiss?: () => void;
 };
-export const UserFinder = ({
-  defaultSearch,
-  open,
-  onSelect,
-  onDismiss,
-}: Props) => {
+export const UserFinder = ({ defaultSearch, onSelect }: Props) => {
   const [page, setPage] = React.useState(0);
   const [search, setSearch] = React.useState(defaultSearch);
   const { isLoading, isError, data } = useGetUsersQuery(
@@ -51,8 +42,7 @@ export const UserFinder = ({
   );
 
   return (
-    <Dialog isOpen={open} aria-labelledby='Select' onDismiss={onDismiss}>
-      <SectionTitle>ユーザー選択</SectionTitle>
+    <div>
       <TextBox
         placeholder='ユーザー名で検索'
         className='w-6/12'
@@ -75,7 +65,7 @@ export const UserFinder = ({
             />
           </div>
         ))}
-    </Dialog>
+    </div>
   );
 };
 
