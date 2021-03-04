@@ -50,10 +50,12 @@ const MypageIndex = () => {
         <>
           <LargeUserInfo user={user!} />
           <div className='py-4'>
-            <section className='mb-2'>
-              <h2 className='text-xl'>所属している部活動</h2>
-              <BelongClubList />
-            </section>
+            {showNewClub && (
+              <section className='mb-2'>
+                <h2 className='text-xl'>所属している部活動</h2>
+                <BelongClubList />
+              </section>
+            )}
             <section className='mb-2'>
               <h2 className='text-xl'>管理</h2>
               <div className='grid grid-cols-cards col-auto gap-4'>
