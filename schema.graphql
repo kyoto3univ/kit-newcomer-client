@@ -107,7 +107,12 @@ type MutationRoot {
 type QueryRoot {
   getAssetsFromClub(clubId: String!, offset: Int, limit: Int): AssetPaging!
   getMyClubs: [ClubWithLevelItem!]!
-  getClubs(offset: Int, limit: Int, includeUnpublished: Boolean): ClubPaging!
+  getClubs(
+    offset: Int
+    limit: Int
+    includeUnpublished: Boolean
+    moderationState: ClubModerationState
+  ): ClubPaging!
   club(id: String!): ClubWithMembers!
   me: User!
   getUsers(

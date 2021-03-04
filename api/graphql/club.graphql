@@ -115,3 +115,9 @@ mutation setClubPublish($id: String!, $published: Boolean!) {
     id
   }
 }
+
+query getModerationWaitCount {
+  getClubs(moderationState: WAITING, includeUnpublished: true, limit: 1) {
+    count
+  }
+}
