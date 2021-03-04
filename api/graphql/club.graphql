@@ -121,3 +121,12 @@ query getModerationWaitCount {
     count
   }
 }
+
+query getModerationWaitClubs($offset: Int!, $limit: Int!) {
+  getClubs(offset: $offset, limit: $limit, moderationState: WAITING, includeUnpublished: true) {
+    count
+    items {
+      ...ClubBasic
+    }
+  }
+}
