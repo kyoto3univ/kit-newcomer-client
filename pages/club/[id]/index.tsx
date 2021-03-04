@@ -1,10 +1,14 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react';
-import { useGetClubDetailsQuery } from '../../../api/generated';
+import {
+  ClubTopImageType,
+  useGetClubDetailsQuery,
+} from '../../../api/generated';
 import { ClubAdminModerationForm } from '../../../components/club/admin-moderation-form';
 import { MdRenderer } from '../../../components/club/markdown/md-render';
-import { TopImage } from '../../../components/club/top-image';
+import { ClubTopImage } from '../../../components/club/top-image';
+import { ClubTopYouTube } from '../../../components/club/top-youtube';
 import { Alert } from '../../../components/ui/alert';
 import { Button } from '../../../components/ui/button';
 import { AppContainer } from '../../../components/ui/container';
@@ -58,7 +62,11 @@ const ClubDetailPage = () => {
           </Link>
         </Alert>
       )}
-      {data.club.topImage && <TopImage asset={data.club.topImage} />}
+      {data.club.topContentType === ClubTopImageType.Image ? (
+        data.club.topImage && <ClubTopImage asset={data.club.topImage} />
+      ) : (
+        <ClubTopYouTube url={data.club.videoUrl!} />
+      )}
       <dl>
         {data.club.place && (
           <>

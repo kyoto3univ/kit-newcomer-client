@@ -4,7 +4,7 @@ import { assetPath } from '../../utils/asset';
 type Props = {
   asset: AssetDetailsFragment;
 };
-export const TopImage = ({ asset }: Props) => {
+export const ClubTopImage = ({ asset }: Props) => {
   return (
     <div className='flex justify-center py-2'>
       <img
