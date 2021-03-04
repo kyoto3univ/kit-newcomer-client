@@ -46,3 +46,13 @@ mutation changeUserLevel($userId: StringNumber!, $clubId: String!, $level: ClubE
     id
   }
 }
+
+mutation changeUserPermission($userId: StringNumber!, $permission: UserPermission!) {
+  updateUserPermission(
+    userId: $userId,
+    permission: $permission
+  ) {
+    id
+    permission
+  }
+}
