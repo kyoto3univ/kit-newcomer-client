@@ -25,7 +25,7 @@ export const BasicEditFormFields = () => {
         <Field
           component={FormikTextArea}
           name='shortDescription'
-          placeholder='短い説明'
+          placeholder='○○をみんなでして楽しんでいる活動です!…'
           className='text-gray-700 my-1 w-full'
         />
         <FormikError name='shortDescription' />

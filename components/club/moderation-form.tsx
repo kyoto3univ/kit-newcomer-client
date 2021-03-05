@@ -63,7 +63,7 @@ export const ClubModerationForm = ({ club, refetch }: Props) => {
   if (club.moderationState === ClubModerationState.NotAccepted) {
     return (
       <Alert>
-        この活動はまだ管理者に掲載承認されていません
+        この活動はまだ管理者に掲載承認されていません．説明や画像を追加したらリクエストしてください
         {isRequestable && (
           <Button
             loading={isLoading}

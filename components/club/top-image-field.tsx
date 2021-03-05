@@ -17,7 +17,11 @@ export const TopImageField = () => {
   ) : (
     <div className='w-full flex flex-col'>
       <label htmlFor='videoUrl'>YouTube URL</label>
-      <Field component={FormikTextBox} name='videoUrl' />
+      <Field
+        component={FormikTextBox}
+        name='videoUrl'
+        placeholder='https://youtu.be/○○'
+      />
       <FormikError name='videoUrl' />
     </div>
   );

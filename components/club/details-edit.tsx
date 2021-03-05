@@ -39,19 +39,31 @@ export const DetailsEditFormFields = () => {
         <TopImageField />
       </div>
       <label htmlFor='place'>活動場所</label>
-      <Field component={FormikTextBox} name='place' />
+      <Field component={FormikTextBox} name='place' placeholder='○○館' />
       <FormikError name='place' />
       <label htmlFor='schedule'>活動時間</label>
-      <Field component={FormikTextBox} name='schedule' />
+      <Field
+        component={FormikTextBox}
+        name='schedule'
+        placeholder='○曜日○○時～ / 不定期'
+      />
       <FormikError name='schedule' />
       <label htmlFor='joinDescription'>入部方法</label>
-      <Field component={FormikTextArea} name='joinDescription' />
+      <Field
+        component={FormikTextArea}
+        name='joinDescription'
+        placeholder='xxxxxx@edu.kit.ac.jpから連絡する / 代表者ツイッターからDM'
+      />
       <FormikError name='joinDescription' />
-      <label htmlFor='longDescription'>詳細解説</label>
+      <label htmlFor='longDescription'>詳細説明</label>
       <ClubMarkdownEditorField name='longDescription' />
       <FormikError name='longDescription' />
       <label htmlFor='contactUrl'>連絡先(URL)</label>
-      <Field component={FormikTextBox} name='contactUrl' />
+      <Field
+        component={FormikTextBox}
+        name='contactUrl'
+        placeholder='https://twitter.com/○○ / https://peing.net/○○'
+      />
       <FormikError name='contactUrl' />
     </div>
   );

@@ -56,6 +56,20 @@ const NewClub = () => {
         onSubmit={handleSubmit}
       >
         <Form>
+          <h3 className='text-xl'>部活動作成の流れ</h3>
+          <ol className='list-decimal'>
+            <li>
+              ここから部活動を作成し，説明文や画像を掲載する．
+              <br />
+              また他のメンバーのアカウントを追加することで，共同編集することもできます．
+            </li>
+            <li>
+              掲載をリクエストする．
+              掲載基準に満たない部活動や，情報の不備がなければ承認されます．
+            </li>
+            <li>承認されれば，好きなタイミングで公開することができます！</li>
+          </ol>
+          <hr />
           <label htmlFor='name'>部活名</label>
           <Field
             as={TextBox}
@@ -64,6 +78,7 @@ const NewClub = () => {
             maxLength={32}
             placeholder='Awesome Club activity'
             disabled={isLoading}
+            className='w-full'
           ></Field>
           <ErrorMessage name='name' />
 

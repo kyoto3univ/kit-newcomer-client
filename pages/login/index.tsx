@@ -37,6 +37,10 @@ const Login = () => {
     <div>
       <AppContainer>
         <SectionTitle>ログイン</SectionTitle>
+        <p>
+          Twitterアカウントでログインすることで，部活動を作成することができます．
+          他にもお気に入りなどの便利機能を使えるようになる予定です．
+        </p>
         <Button
           loading={isLoading}
           disabled={isLoading || isSuccess || canBeLoggedIn || isLoggedIn}

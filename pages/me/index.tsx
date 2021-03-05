@@ -71,7 +71,10 @@ const MypageIndex = () => {
                 )}
                 {showNewClub && (
                   <Link href='/new/club' passHref>
-                    <ContentCard title='新しい部活を作成' />
+                    <ContentCard
+                      title='新しい部活を作成'
+                      description='新しい部活動を作成し，公開することができます．'
+                    />
                   </Link>
                 )}
                 {showAdmin && (
