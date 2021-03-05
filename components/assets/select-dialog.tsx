@@ -31,7 +31,7 @@ export const AssetSelectDialog = ({
   const {
     data: uploadedAssets,
     refetch: refetchAssets,
-  } = useGetAssetsFromClubQuery({ clubId, limit: 100 });
+  } = useGetAssetsFromClubQuery({ clubId, limit: 100 }, { enabled: open });
   const [selectedAssetId, setSelectedAssetId] = React.useState(
     currentAsset?.id ?? '',
   );
