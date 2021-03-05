@@ -2,6 +2,7 @@ import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { useCreateNewClubMutation, UserPermission } from '../../api/generated';
+import { PageTitle } from '../../components/title';
 import { Button } from '../../components/ui/button';
 import { AppContainer } from '../../components/ui/container';
 import { TextBox } from '../../components/ui/input';
@@ -49,6 +50,7 @@ const NewClub = () => {
 
   return (
     <AppContainer>
+      <PageTitle title='新しい部活動の作成' />
       <Formik
         initialValues={{
           name: '',

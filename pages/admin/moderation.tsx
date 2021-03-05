@@ -4,6 +4,7 @@ import { useInView } from 'react-intersection-observer';
 import { useAllClubsInfiniteQuery } from '../../api/club-infinite';
 import { ClubModerationState } from '../../api/generated';
 import { ClubListItem } from '../../components/club/list-item';
+import { PageTitle } from '../../components/title';
 import { AppContainer } from '../../components/ui/container';
 import { Loading } from '../../components/ui/loading';
 import { SectionTitle } from '../../components/ui/section-title';
@@ -35,6 +36,7 @@ const ClubModerationPage = () => {
 
   return (
     <AppContainer>
+      <PageTitle title='活動一覧(管理)' />
       <SectionTitle>活動一覧</SectionTitle>
 
       {isLoading ? (

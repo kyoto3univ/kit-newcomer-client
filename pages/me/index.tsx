@@ -5,6 +5,7 @@ import {
   UserPermission,
 } from '../../api/generated';
 import { BelongClubList } from '../../components/club/belong-list';
+import { PageTitle } from '../../components/title';
 import { AppContainer } from '../../components/ui/container';
 import { ContentCard } from '../../components/ui/content-card';
 import { Loading } from '../../components/ui/loading';
@@ -46,6 +47,7 @@ const MypageIndex = () => {
 
   return (
     <AppContainer>
+      <PageTitle title='マイページ' />
       {isLoggedIn && (
         <>
           <LargeUserInfo user={user!} />

@@ -9,6 +9,7 @@ import { ClubAdminModerationForm } from '../../../components/club/admin-moderati
 import { MdRenderer } from '../../../components/club/markdown/md-render';
 import { ClubTopImage } from '../../../components/club/top-image';
 import { ClubTopYouTube } from '../../../components/club/top-youtube';
+import { PageTitle } from '../../../components/title';
 import { Alert } from '../../../components/ui/alert';
 import { Button } from '../../../components/ui/button';
 import { AppContainer } from '../../../components/ui/container';
@@ -44,6 +45,7 @@ const ClubDetailPage = () => {
 
   return (
     <AppContainer>
+      <PageTitle title={data.club.name} />
       <SectionTitle>
         {data.club.name}
         {!data.club.isPublished && (

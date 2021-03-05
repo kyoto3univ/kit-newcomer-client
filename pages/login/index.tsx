@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import React from 'react';
 import { useGetAuthorizeInfoMutation } from '../../api/generated';
+import { PageTitle } from '../../components/title';
 import { Button } from '../../components/ui/button';
 import { AppContainer } from '../../components/ui/container';
 import { SectionTitle } from '../../components/ui/section-title';
@@ -36,6 +37,7 @@ const Login = () => {
   return (
     <div>
       <AppContainer>
+        <PageTitle title='ログイン' />
         <SectionTitle>ログイン</SectionTitle>
         <p>
           Twitterアカウントでログインすることで，部活動を作成することができます．

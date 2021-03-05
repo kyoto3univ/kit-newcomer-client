@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import React from 'react';
+import { PageTitle } from '../components/title';
 import { AppContainer } from '../components/ui/container';
 import { ContentCard } from '../components/ui/content-card';
 import { SectionTitle } from '../components/ui/section-title';
@@ -7,6 +8,7 @@ import { SectionTitle } from '../components/ui/section-title';
 const Index = () => {
   return (
     <AppContainer>
+      <PageTitle title='トップページ' />
       <section>
         <SectionTitle>KIT新入生応援サイトとは？</SectionTitle>
         <p className='my-2'>
