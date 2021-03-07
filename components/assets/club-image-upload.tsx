@@ -53,7 +53,7 @@ export const ClubImageUpload = ({
       >
         {currentAsset ? (
           <img
-            src={assetPath(currentAsset)}
+            src={assetPath(currentAsset, 'lthumb')}
             alt={currentAsset.alternativeDescription ?? 'IMAGE'}
             className={clsx(
               'object-contain max-h-full max-w-full',

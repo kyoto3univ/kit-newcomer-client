@@ -86,7 +86,10 @@ export const AssetSelectDialog = ({
               )}
               onClick={() => setSelectedAssetId(item.id)}
             >
-              <img src={assetPath(item)} className='w-32 h-32 object-contain' />
+              <img
+                src={assetPath(item, 'mthumb')}
+                className='w-32 h-32 object-contain'
+              />
             </div>
           );
         })}

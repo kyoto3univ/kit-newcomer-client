@@ -16,7 +16,7 @@ export const ClubListItem = ({ club, link = 'view' }: Props) => {
       <a className='py-2 flex flex-row border-b border-gray-400'>
         {club.thumbImage && (
           <img
-            src={assetPath(club.thumbImage)}
+            src={assetPath(club.thumbImage, 'mthumb')}
             alt={club.thumbImage.alternativeDescription ?? 'Club image'}
             className='w-24 h-24 object-cover'
           />
