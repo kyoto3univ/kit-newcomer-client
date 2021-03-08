@@ -59,7 +59,7 @@ const NewClub = () => {
       >
         <Form>
           <h3 className='text-xl'>部活動作成の流れ</h3>
-          <ol className='list-decimal'>
+          <ol className='list-decimal pl-4'>
             <li>
               ここから部活動を作成し，説明文や画像を掲載する．
               <br />
