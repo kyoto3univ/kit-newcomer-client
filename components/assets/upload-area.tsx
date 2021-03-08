@@ -70,7 +70,7 @@ export const AssetUploadArea = ({ onAssetUpload, clubId }: Props) => {
           アップロード中
         </span>
       ) : (
-        <span>ここをクリックしてアップロード</span>
+        <span>ここをクリックしてアップロード (JPG, PNG, GIF... / ~ 5MB)</span>
       )}
     </div>
   );
