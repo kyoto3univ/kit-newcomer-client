@@ -100,7 +100,9 @@ const ClubDetailPage = () => {
           <>
             <dt className='font-bold'>連絡先</dt>
             <dd className='pl-8'>
-              <a href={data.club.contactUrl}>{data.club.contactUrl}</a>
+              <a className='text-blue-light' href={data.club.contactUrl}>
+                {data.club.contactUrl}
+              </a>
             </dd>
           </>
         )}
