@@ -2,6 +2,7 @@ import { AppProps } from 'next/app';
 import React from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { AppHeader } from '../components/app-header';
+import '../components/gtag';
 
 import '../styles/base.css';
 import 'codemirror/lib/codemirror.css';
