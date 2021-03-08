@@ -1,4 +1,5 @@
 import { Form, Formik, useFormikContext } from 'formik';
+import Link from 'next/link';
 import React from 'react';
 import { ClubDetailFragment, useUpdateClubMutation } from '../../api/generated';
 import {
@@ -55,6 +56,11 @@ export const ClubContentEditForm = ({ club }: Props) => {
         <DetailsEditFormFields />
         <hr />
         <Submit />
+        <Link href='/club/[id]' as={`/club/${club.id}`} passHref>
+          <a className='pl-4 text-blue-light hover:text-blue hover:underline'>
+            プレビュー
+          </a>
+        </Link>
       </Form>
     </Formik>
   );
