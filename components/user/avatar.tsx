@@ -13,7 +13,7 @@ export const Avatar = ({
   return (
     <div>
       <img
-        src={icon}
+        src={icon?.replace('_normal.', '.')}
         alt='Avatar'
         className={clsx('object-fill', 'rounded-full', {
           'ring-2': variant === 'normal',
