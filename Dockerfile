@@ -7,4 +7,5 @@ RUN yarn && yarn build:codegen && yarn build \
   && addgroup next && adduser -D -G next next && chown -R next:next .
 
 USER next
+EXPOSE 3000
 CMD ["yarn", "start"]
