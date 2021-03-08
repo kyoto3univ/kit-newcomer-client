@@ -47,7 +47,7 @@ export const MemberItem = ({
   }, []);
 
   return (
-    <div className='flex justify-between'>
+    <div className='flex md:justify-between md:flex-row md:border-0 md:py-0 border-b py-1 flex-col justify-start'>
       <div className='flex items-center'>
         {user.icon && <Avatar ringColor='blue' icon={user.icon} />}
         <div className='ml-3'>

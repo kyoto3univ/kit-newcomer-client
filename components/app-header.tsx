@@ -6,16 +6,17 @@ export const AppHeader = () => {
   const { isLoggedIn, isLoading, user } = useUser();
   return (
     <div className='bg-blue w-full'>
-      <div className='container mx-auto text-white flex items-center justify-between md:px-0 px-2'>
+      <div className='container mx-auto text-white flex items-center justify-between md:px-2 px-1'>
         <Link href='/' passHref>
-          <a className='text-2xl py-3'>新入生応援サイト</a>
+          <a className='md:text-2xl text-xl py-3'>新入生応援サイト</a>
         </Link>
         {isLoading ? (
           <Spin />
         ) : isLoggedIn ? (
           <Link href='/me' passHref>
-            <a className='text-white' href='#'>
+            <a className='text-white flex items-center' href='#'>
               <Avatar icon={user!.icon || undefined} />
+              <span className='pl-1 md:inline hidden'>マイページ</span>
             </a>
           </Link>
         ) : (

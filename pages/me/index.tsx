@@ -60,7 +60,7 @@ const MypageIndex = () => {
             )}
             <section className='mb-2'>
               <h2 className='text-xl'>管理</h2>
-              <div className='grid grid-cols-cards col-auto gap-4'>
+              <div className='grid grid-cols-cards col-auto md:gap-4 gap-1'>
                 {showModeration && (
                   <Link href='/admin/moderation' passHref>
                     <ContentCard

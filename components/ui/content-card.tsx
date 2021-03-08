@@ -16,9 +16,9 @@ export const ContentCard = React.forwardRef<HTMLAnchorElement, Props>(
         {...props}
         className={clsx(
           'border border-gray-400 rounded-md',
-          'shadow-xl',
-          'p-5',
-          'm-4',
+          'md:shadow-xl shadow',
+          'p-4',
+          'md:m-4 m-2',
           'transition-transform',
           'transform',
           'scale-100',
