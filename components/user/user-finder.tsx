@@ -82,12 +82,12 @@ const UserListItem = ({
 
   return (
     <div
-      className='flex items-center hover:bg-gray-300 py-1 px-2 cursor-pointer'
+      className='flex items-center hover:bg-gray-300 py-1 px-2 cursor-pointer flex-wrap'
       onClick={handleSelect}
     >
       {user.icon && <Avatar ringColor='blue' icon={user.icon} />}
       <div className='ml-3'>
-        <h3>
+        <h3 className='break-all'>
           {user.name}
           <span className='border rounded bg-gray-100 ml-2 px-1'>
             {user.permission}
