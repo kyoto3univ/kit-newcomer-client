@@ -42,6 +42,8 @@ export const UserEditDialog = ({ targetUser, open, onClose }: Props) => {
     [targetUser],
   );
 
+  React.useEffect(() => setUpdatedPermission(null), [open]);
+
   return (
     <Dialog isOpen={open} aria-labelledby='Select' onDismiss={onClose}>
       <SectionTitle>ユーザー変更</SectionTitle>
