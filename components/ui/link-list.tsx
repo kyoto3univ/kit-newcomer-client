@@ -7,7 +7,7 @@ export const LinkList = ({ content }: { content: string }) => {
           return (
             <li>
               <a
-                className='text-blue-light'
+                className='text-blue-light break-all'
                 href={RegExp.$1.replace(/\s*$/, '')}
               >
                 {item}
