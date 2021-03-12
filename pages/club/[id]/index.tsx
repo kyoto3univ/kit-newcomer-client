@@ -11,8 +11,10 @@ import { ClubTopImage } from '../../../components/club/top-image';
 import { ClubTopYouTube } from '../../../components/club/top-youtube';
 import { PageTitle } from '../../../components/title';
 import { Alert } from '../../../components/ui/alert';
+import { TextAutoLink } from '../../../components/ui/auto-link';
 import { Button } from '../../../components/ui/button';
 import { AppContainer } from '../../../components/ui/container';
+import { LinkList } from '../../../components/ui/link-list';
 import { Loading } from '../../../components/ui/loading';
 import { SectionTitle } from '../../../components/ui/section-title';
 import { useIsMember } from '../../../utils/modify-check';
@@ -85,7 +87,9 @@ const ClubDetailPage = () => {
         {data.club.joinDescription && (
           <>
             <dt className='font-bold'>入部方法</dt>
-            <dd className='pl-8'>{data.club.joinDescription}</dd>
+            <dd className='pl-8'>
+              <TextAutoLink content={data.club.joinDescription} />
+            </dd>
           </>
         )}
       </dl>
@@ -100,9 +104,7 @@ const ClubDetailPage = () => {
           <>
             <dt className='font-bold'>連絡先</dt>
             <dd className='pl-8'>
-              <a className='text-blue-light' href={data.club.contactUrl}>
-                {data.club.contactUrl}
-              </a>
+              <LinkList content={data.club.contactUrl} />
             </dd>
           </>
         )}

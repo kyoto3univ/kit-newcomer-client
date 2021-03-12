@@ -58,7 +58,7 @@ export const DetailsEditFormFields = () => {
       <label htmlFor='longDescription'>詳細説明</label>
       <ClubMarkdownEditorField name='longDescription' />
       <FormikError name='longDescription' />
-      <label htmlFor='contactUrl'>連絡先(URL)</label>
+      <label htmlFor='contactUrl'>連絡先(URL,スペース区切り)</label>
       <Field
         component={FormikTextBox}
         name='contactUrl'

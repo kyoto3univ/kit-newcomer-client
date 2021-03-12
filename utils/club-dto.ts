@@ -53,7 +53,9 @@ export const convertFormToClubDto = (
 };
 
 export const clubDtoValidator = yup.object().shape({
-  contactUrl: yup.string().url(),
+  contactUrl: yup
+    .string()
+    .matches(/^(https?:\/\/[a-z0-9.,_/~#&=;%@+?\-\\(\\)]+\s?)+$/i),
   joinDescription: yup.string().max(150),
   longDescription: yup.string(),
   name: yup.string().max(50).required(),
