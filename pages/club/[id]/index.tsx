@@ -87,7 +87,7 @@ const ClubDetailPage = () => {
         {data.club.joinDescription && (
           <>
             <dt className='font-bold'>入部方法</dt>
-            <dd className='pl-8 whitespace-pre'>
+            <dd className='pl-8 whitespace-pre-wrap'>
               <TextAutoLink content={data.club.joinDescription} />
             </dd>
           </>
