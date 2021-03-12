@@ -23,8 +23,8 @@ const Index = () => {
         <div className='grid grid-cols-cards col-auto gap-4 items-center justify-around'>
           <Link href='/club' passHref>
             <ContentCard
-              title='部活動紹介'
-              description='京都工芸繊維大学の部活動を紹介します．'
+              title='部活・サークル紹介'
+              description='京都工芸繊維大学の部活動・サークルを紹介します．'
             />
           </Link>
         </div>

@@ -27,8 +27,8 @@ const ClubListPage = () => {
 
   return (
     <AppContainer>
-      <PageTitle title='部活動一覧' />
-      <SectionTitle>部活動一覧</SectionTitle>
+      <PageTitle title='部活・サークル一覧' />
+      <SectionTitle>部活・サークル一覧</SectionTitle>
 
       {isLoading ? (
         <Loading />
