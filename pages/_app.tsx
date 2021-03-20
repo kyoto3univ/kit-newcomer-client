@@ -1,6 +1,7 @@
 import { AppProps } from 'next/app';
 import React from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { Hydrate } from 'react-query/hydration';
 import { AppHeader } from '../components/app-header';
 import '../components/gtag';
 
@@ -23,8 +24,10 @@ const App = ({ Component, pageProps }: AppProps) => {
 
   return (
     <QueryClientProvider client={queryClientRef.current}>
-      <AppHeader />
-      <Component {...pageProps} />
+      <Hydrate state={pageProps.dehydratedState}>
+        <AppHeader />
+        <Component {...pageProps} />
+      </Hydrate>
     </QueryClientProvider>
   );
 };

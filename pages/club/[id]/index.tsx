@@ -1,8 +1,15 @@
+import { GetStaticPaths, GetStaticProps } from 'next';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react';
+import { QueryClient, useQuery } from 'react-query';
+import { dehydrate } from 'react-query/hydration';
+import { fetchGQL } from '../../../api/fetcher';
 import {
   ClubTopImageType,
+  GetClubBasicForIsrDocument,
+  GetClubBasicForIsrQuery,
+  GetClubBasicForIsrQueryVariables,
   useGetClubDetailsQuery,
 } from '../../../api/generated';
 import { ClubAdminModerationForm } from '../../../components/club/admin-moderation-form';
@@ -17,6 +24,7 @@ import { AppContainer } from '../../../components/ui/container';
 import { LinkList } from '../../../components/ui/link-list';
 import { Loading } from '../../../components/ui/loading';
 import { SectionTitle } from '../../../components/ui/section-title';
+import { assetPath } from '../../../utils/asset';
 import { useIsMember } from '../../../utils/modify-check';
 
 const ClubDetailPage = () => {
@@ -27,11 +35,31 @@ const ClubDetailPage = () => {
     },
     { enabled: !!query.id },
   );
+  const { data: isrData } = useQuery<GetClubBasicForIsrQuery>([
+    'getClubBasicForIsr',
+    {
+      id: query.id as string,
+    },
+  ]);
   const isMember = useIsMember(data?.club);
 
   if (isLoading) {
     return (
       <AppContainer>
+        {isrData && (
+          <PageTitle
+            title={isrData.club.name}
+            description={isrData.club.shortDescription}
+            largeImage={
+              isrData.club.topImage ? assetPath(isrData.club.topImage) : null
+            }
+            smallImage={
+              isrData.club.thumbImage
+                ? assetPath(isrData.club.thumbImage)
+                : null
+            }
+          />
+        )}
         <Loading />
       </AppContainer>
     );
@@ -115,3 +143,33 @@ const ClubDetailPage = () => {
 };
 
 export default ClubDetailPage;
+
+export const getStaticProps: GetStaticProps<
+  { dehydratedState: unknown },
+  { id: string }
+> = async (props) => {
+  if (!props.params?.id) return { props: { dehydratedState: {} } };
+
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery(
+    ['getClubBasicForIsr', { id: props.params?.id }],
+    fetchGQL<GetClubBasicForIsrQuery, GetClubBasicForIsrQueryVariables>(
+      GetClubBasicForIsrDocument,
+      { id: props.params?.id },
+    ),
+  );
+
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+    },
+  };
+};
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  return {
+    paths: [],
+    fallback: 'blocking',
+  };
+};

@@ -69,6 +69,20 @@ query getClubDetails($id: String!) {
   }
 }
 
+query getClubBasicForISR($id: String!) {
+  club(id: $id) {
+    id
+    name
+    shortDescription
+    topImage {
+      ...AssetBasic
+    }
+    thumbImage {
+      ...AssetBasic
+    }
+  }
+}
+
 mutation updateClub($id: String!, $update: UpdateClubDto!) {
   updateClub(id: $id, update: $update) {
     ...ClubDetail
