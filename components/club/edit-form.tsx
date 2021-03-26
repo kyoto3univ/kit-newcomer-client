@@ -51,8 +51,10 @@ export const ClubContentEditForm = ({ club }: Props) => {
       validateOnChange
     >
       <Form>
+        <h3>一覧用情報</h3>
         <BasicEditFormFields />
         <hr />
+        <h3>詳細ページ用情報</h3>
         <DetailsEditFormFields />
         <hr />
         <Submit />
